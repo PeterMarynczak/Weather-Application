@@ -41,4 +41,15 @@ public class WeatherService {
         JSONObject mainObject = getWeather(name).getJSONObject("main");
         return mainObject;
     }
+
+    public JSONObject returnWindObject(String name) throws JSONException {
+        JSONObject windObject = getWeather(name).getJSONObject("wind");
+        return windObject;
+    }
+
+    public JSONObject returnSunSet(String name) throws JSONException {
+        JSONObject sunObject = getWeather(name).getJSONObject("sys");
+        return sunObject;
+    }
+
 }
