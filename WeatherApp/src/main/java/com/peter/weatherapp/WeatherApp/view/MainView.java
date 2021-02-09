@@ -25,6 +25,10 @@ public class MainView extends UI {
         try {
             //System.out.println("Data: " + weatherService.getWeather("przemysl").getString("coord").toString());
             JSONArray jsonArray = weatherService.returnWeatherArray("Przemysl");
+            JSONObject myObject = weatherService.returnMainObject("Przemysl");
+
+            System.out.println("Id: " + myObject.getLong("pressure"));
+
             for (int i = 0; i < jsonArray.length() ; i++) {
                 JSONObject weatherObject = jsonArray.getJSONObject(i);
 

@@ -34,7 +34,11 @@ public class WeatherService {
 
     public JSONArray returnWeatherArray(String name) throws JSONException {
         JSONArray weatherJsonArray = getWeather(name).getJSONArray("weather");
-
         return weatherJsonArray;
+    }
+
+    public JSONObject returnMainObject(String name) throws JSONException {
+        JSONObject mainObject = getWeather(name).getJSONObject("main");
+        return mainObject;
     }
 }
