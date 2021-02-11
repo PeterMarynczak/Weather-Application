@@ -4,6 +4,7 @@ import com.peter.weatherapp.WeatherApp.controller.WeatherService;
 import com.vaadin.server.VaadinRequest;
 import com.vaadin.spring.annotation.SpringUI;
 import com.vaadin.ui.*;
+import com.vaadin.ui.themes.ValoTheme;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -43,7 +44,10 @@ public class MainView extends UI {
         HorizontalLayout headerLayout = new HorizontalLayout();
         headerLayout.setDefaultComponentAlignment(Alignment.MIDDLE_CENTER);
 
-        Label title = new Label("Weather!");
+        Label title = new Label("Welcome in Weather App!");
+        title.addStyleName(ValoTheme.LABEL_H1);
+        title.addStyleName(ValoTheme.LABEL_BOLD);
+        title.addStyleName(ValoTheme.LABEL_COLORED);
 
         headerLayout.addComponents(title);
 
