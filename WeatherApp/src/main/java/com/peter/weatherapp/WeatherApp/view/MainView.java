@@ -1,6 +1,7 @@
 package com.peter.weatherapp.WeatherApp.view;
 
 import com.peter.weatherapp.WeatherApp.controller.WeatherService;
+import com.vaadin.icons.VaadinIcons;
 import com.vaadin.server.ClassResource;
 import com.vaadin.server.VaadinRequest;
 import com.vaadin.spring.annotation.SpringUI;
@@ -25,6 +26,7 @@ public class MainView extends UI {
     private VerticalLayout mainLayout;
     private NativeSelect<String> unitSelect;
     private TextField cityTextField;
+    private Button showWeatherButton;
 
     @Override
     protected void init(VaadinRequest vaadinRequest) {
@@ -89,7 +91,6 @@ public class MainView extends UI {
 
         unitSelect.setItems(items);
         unitSelect.setValue(items.get(0));
-
         formLayout.addComponents(unitSelect);
 
         //Adding TextField
@@ -97,7 +98,12 @@ public class MainView extends UI {
         cityTextField.setWidth("300px");
         formLayout.addComponents(cityTextField);
 
-        mainLayout.addComponents(unitSelect, cityTextField);
+        //Add Button
+        showWeatherButton = new Button();
+        showWeatherButton.setIcon(VaadinIcons.SEARCH);
+        formLayout.addComponents(showWeatherButton);
+
+        mainLayout.addComponents(formLayout);
     }
 }
 
