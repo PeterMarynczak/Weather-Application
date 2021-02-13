@@ -27,6 +27,8 @@ public class MainView extends UI {
     private NativeSelect<String> unitSelect;
     private TextField cityTextField;
     private Button showWeatherButton;
+    private Label currentLocationTitle;
+    private Label currentTemp;
 
     @Override
     protected void init(VaadinRequest vaadinRequest) {
@@ -34,6 +36,7 @@ public class MainView extends UI {
         setHeader();
         setLogo();
         setUpForm();
+        dashBoardTitle();
     }
 
     private void setUpLayout() {
@@ -105,6 +108,28 @@ public class MainView extends UI {
 
         mainLayout.addComponents(formLayout);
     }
+
+    private void dashBoardTitle() {
+        HorizontalLayout dashBoardMain = new HorizontalLayout();
+        dashBoardMain.setDefaultComponentAlignment(Alignment.MIDDLE_CENTER);
+
+        currentLocationTitle = new Label("Currently in Przemyśl");
+        currentLocationTitle.addStyleName(ValoTheme.LABEL_H2);
+        currentLocationTitle.addStyleName(ValoTheme.LABEL_LIGHT);
+
+        //Current Temperature Label
+        currentTemp = new Label("19F");
+        currentTemp.addStyleName(ValoTheme.LABEL_BOLD);
+        currentTemp.addStyleName(ValoTheme.LABEL_H1);
+        currentTemp.addStyleName(ValoTheme.LABEL_LIGHT);
+
+        dashBoardMain.addComponents(currentLocationTitle, currentTemp);
+
+        mainLayout.addComponents(dashBoardMain);
+
+
+    }
+
 }
 
 
