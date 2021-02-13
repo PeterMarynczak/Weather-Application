@@ -30,6 +30,14 @@ public class MainView extends UI {
     private Button showWeatherButton;
     private Label currentLocationTitle;
     private Label currentTemp;
+    private Label weatherDescription;
+    private Label weatherMin;
+    private Label weatherMax;
+    private Label pressureLabel;
+    private Label humidityLabel;
+    private Label windSpeedLabel;
+    private Label sunRiseLabel;
+    private Label sunSetLabel;
 
     @Override
     protected void init(VaadinRequest vaadinRequest) {
@@ -38,6 +46,7 @@ public class MainView extends UI {
         setLogo();
         setUpForm();
         dashBoardTitle();
+        dashBoardDescription();
     }
 
     private void setUpLayout() {
@@ -81,8 +90,9 @@ public class MainView extends UI {
     }
 
     private void setUpForm() {
+
         HorizontalLayout formLayout = new HorizontalLayout();
-        formLayout.setDefaultComponentAlignment(Alignment.MIDDLE_LEFT);
+        formLayout.setDefaultComponentAlignment(Alignment.MIDDLE_CENTER);
         formLayout.setSpacing(true);
         formLayout.setMargin(true);
 
@@ -130,6 +140,51 @@ public class MainView extends UI {
         dashBoardMain.addComponents(currentLocationTitle, image, currentTemp);
 
         mainLayout.addComponents(dashBoardMain);
+
+
+    }
+
+    private void dashBoardDescription() {
+
+        HorizontalLayout mainDescriptionLayout = new HorizontalLayout();
+        mainDescriptionLayout.setDefaultComponentAlignment(Alignment.MIDDLE_CENTER);
+
+        //Description Vertical Layout
+        VerticalLayout descriptionLayout = new VerticalLayout();
+        descriptionLayout.addStyleName(ValoTheme.FORMLAYOUT_LIGHT);
+        descriptionLayout.setDefaultComponentAlignment(Alignment.MIDDLE_CENTER);
+
+        weatherDescription = new Label("Description: Clear Sky");
+        descriptionLayout.addComponents(weatherDescription);
+
+        weatherMin = new Label("Min: 56F");
+        descriptionLayout.addComponents(weatherMin);
+
+        weatherMax = new Label("Max: 89F");
+        descriptionLayout.addComponents(weatherMax);
+
+        //Description Vertical Layout
+        VerticalLayout pressureLayout = new VerticalLayout();
+        pressureLayout.addStyleName(ValoTheme.FORMLAYOUT_LIGHT);
+        pressureLayout.setDefaultComponentAlignment(Alignment.MIDDLE_CENTER);
+
+        pressureLabel = new Label("Pressure: 123pa");
+        pressureLayout.addComponents(pressureLabel);
+
+        humidityLabel = new Label("Humidity: 34");
+        pressureLayout.addComponents(humidityLabel);
+
+        windSpeedLabel = new Label("Wind Speed: 123/hr");
+        pressureLayout.addComponents(windSpeedLabel);
+
+        sunRiseLabel = new Label("Sunrise");
+        pressureLayout.addComponents(sunRiseLabel);
+
+        sunSetLabel = new Label("Sunset");
+        pressureLayout.addComponents(sunSetLabel);
+
+        mainDescriptionLayout.addComponents(descriptionLayout,pressureLayout);
+        mainLayout.addComponent(mainDescriptionLayout);
 
 
     }
