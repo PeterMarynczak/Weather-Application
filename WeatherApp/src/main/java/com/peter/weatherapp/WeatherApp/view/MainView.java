@@ -3,6 +3,7 @@ package com.peter.weatherapp.WeatherApp.view;
 import com.peter.weatherapp.WeatherApp.controller.WeatherService;
 import com.vaadin.icons.VaadinIcons;
 import com.vaadin.server.ClassResource;
+import com.vaadin.server.ExternalResource;
 import com.vaadin.server.VaadinRequest;
 import com.vaadin.spring.annotation.SpringUI;
 import com.vaadin.ui.*;
@@ -117,13 +118,16 @@ public class MainView extends UI {
         currentLocationTitle.addStyleName(ValoTheme.LABEL_H2);
         currentLocationTitle.addStyleName(ValoTheme.LABEL_LIGHT);
 
+        ExternalResource img = new ExternalResource("http://openweathermap.org/img/wn/11n.png");
+        Embedded image = new Embedded(null, img);
+
         //Current Temperature Label
         currentTemp = new Label("19F");
         currentTemp.addStyleName(ValoTheme.LABEL_BOLD);
         currentTemp.addStyleName(ValoTheme.LABEL_H1);
         currentTemp.addStyleName(ValoTheme.LABEL_LIGHT);
 
-        dashBoardMain.addComponents(currentLocationTitle, currentTemp);
+        dashBoardMain.addComponents(currentLocationTitle, image, currentTemp);
 
         mainLayout.addComponents(dashBoardMain);
 
