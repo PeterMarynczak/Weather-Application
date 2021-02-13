@@ -12,6 +12,7 @@ import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import javax.xml.ws.Service;
 
+import java.util.ArrayList;
 import java.util.Collections;
 
 import static javax.swing.UIManager.getString;
@@ -22,12 +23,15 @@ public class MainView extends UI {
     @Autowired
     private WeatherService weatherService;
     private VerticalLayout mainLayout;
+    private NativeSelect<String> unitSelect;
+    private TextField cityTextField;
 
     @Override
     protected void init(VaadinRequest vaadinRequest) {
         setUpLayout();
         setHeader();
         setLogo();
+        setUpForm();
     }
 
     private void setUpLayout() {
@@ -60,7 +64,7 @@ public class MainView extends UI {
         HorizontalLayout logoLayout = new HorizontalLayout();
         logoLayout.setDefaultComponentAlignment(Alignment.MIDDLE_CENTER);
 
-        Image icon = new Image("Hello", new ClassResource("/weather_icon.png"));
+        Image icon = new Image(null, new ClassResource("/weather_icon.png"));
         icon.setWidth("125px");
         icon.setHeight("125px");
 
@@ -68,6 +72,32 @@ public class MainView extends UI {
 
         mainLayout.addComponents(logoLayout);
 
+    }
+
+    private void setUpForm() {
+        HorizontalLayout formLayout = new HorizontalLayout();
+        formLayout.setDefaultComponentAlignment(Alignment.MIDDLE_LEFT);
+        formLayout.setSpacing(true);
+        formLayout.setMargin(true);
+
+        //Creating selection of component
+        unitSelect = new NativeSelect<>();
+        unitSelect.setWidth("50px");
+        ArrayList<String> items = new ArrayList<>();
+        items.add("C");
+        items.add("F");
+
+        unitSelect.setItems(items);
+        unitSelect.setValue(items.get(0));
+
+        formLayout.addComponents(unitSelect);
+
+        //Adding TextField
+        cityTextField = new TextField();
+        cityTextField.setWidth("300px");
+        formLayout.addComponents(cityTextField);
+
+        mainLayout.addComponents(unitSelect, cityTextField);
     }
 }
 
