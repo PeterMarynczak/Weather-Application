@@ -38,8 +38,9 @@ public class MainView extends UI {
     private Label windSpeedLabel;
     private Label sunRiseLabel;
     private Label sunSetLabel;
-    private ExternalResource img;
-    private Embedded iconImage;
+    //private ExternalResource img;
+    private Image iconImage;
+    private HorizontalLayout dashBoardMain;
 
     @Override
     protected void init(VaadinRequest vaadinRequest) {
@@ -48,7 +49,7 @@ public class MainView extends UI {
         setLogo();
         setUpForm();
         dashBoardTitle();
-        dashBoardDescription();
+        //dashBoardDescription();
 
         showWeatherButton.addClickListener(clickEvent -> {
             if (!cityTextField.getValue().equals("")){
@@ -59,6 +60,8 @@ public class MainView extends UI {
     }
 
     private void setUpLayout() {
+
+        iconImage = new Image();
         mainLayout = new VerticalLayout();
         mainLayout.setWidth("100%");
         mainLayout.setMargin(true);
@@ -130,25 +133,19 @@ public class MainView extends UI {
     }
 
     private void dashBoardTitle() {
-        HorizontalLayout dashBoardMain = new HorizontalLayout();
+
+        dashBoardMain = new HorizontalLayout();
         dashBoardMain.setDefaultComponentAlignment(Alignment.MIDDLE_CENTER);
 
         currentLocationTitle = new Label("Currently in Przemyśl");
         currentLocationTitle.addStyleName(ValoTheme.LABEL_H2);
         currentLocationTitle.addStyleName(ValoTheme.LABEL_LIGHT);
 
-        iconImage = new Embedded(null, img);
-
         //Current Temperature Label
         currentTemp = new Label("19F");
         currentTemp.addStyleName(ValoTheme.LABEL_BOLD);
         currentTemp.addStyleName(ValoTheme.LABEL_H1);
         currentTemp.addStyleName(ValoTheme.LABEL_LIGHT);
-
-        dashBoardMain.addComponents(currentLocationTitle, iconImage, currentTemp);
-
-        mainLayout.addComponents(dashBoardMain);
-
 
     }
 
@@ -207,15 +204,17 @@ public class MainView extends UI {
             currentTemp.setValue(temp + "F");
 
             //Setup icon image
-            String iconCode = null;
+            String iconCode = "";
             JSONArray jsonArray = weatherService.returnWeatherArray(city);
 
             for (int i = 0; i < jsonArray.length() ; i++) {
               JSONObject weatherObject = jsonArray.getJSONObject(i);
               iconCode = weatherObject.getString("icon");
+              System.out.println(iconCode);
             }
-
-            img = new ExternalResource("http://openweathermap.org/img/w/" + iconCode + ".png");
+            iconImage.setSource(new ExternalResource("http://openweathermap.org/img/w/" + iconCode + ".png"));
+            dashBoardMain.addComponents(currentLocationTitle, iconImage, currentTemp);
+            mainLayout.addComponents(dashBoardMain);
 
             } catch (JSONException e) {
             e.printStackTrace();
