@@ -14,8 +14,10 @@ import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import javax.xml.ws.Service;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Date;
 
 import static javax.swing.UIManager.getString;
 
@@ -204,6 +206,16 @@ public class MainView extends UI {
             int pressure = mainObject.getInt("pressure");
             int humidity = mainObject.getInt("humidity");
 
+            //Get Wind Speed
+            JSONObject windObject = weatherService.returnWindObject(city);
+            double wind = windObject.getDouble("speed");
+
+            //Get sunrise and sunset
+            JSONObject systemObject = weatherService.returnSunSet(city);
+            long sunRise = systemObject.getLong("sunrise") * 1000;
+            long sunSet = systemObject.getLong("sunset") * 1000;
+
+
             //Setup icon image
             String iconCode = "";
             String description = "";
@@ -223,27 +235,26 @@ public class MainView extends UI {
             weatherDescription.setValue("Cloudiness: " + description);
             weatherMin.setValue("Min: " + String.valueOf(minTemp));
             weatherMax.setValue("Max: " + String.valueOf(maxTemp));
-            pressureLabel.setValue("Pressure " + String.valueOf(pressure));
+            pressureLabel.setValue("Pressure: " + String.valueOf(pressure));
             humidityLabel.setValue("Humidity: " + String.valueOf(humidity));
+            windSpeedLabel.setValue("Wind: " + String.valueOf(wind) + "m/s");
+            sunRiseLabel.setValue("Sunrise: " + convertTime(sunRise));
+            sunSetLabel.setValue("Sunset: " + convertTime(sunSet));
 
             mainDescriptionLayout.addComponents(descriptionLayout, pressureLayout);
             mainLayout.addComponent(mainDescriptionLayout);
-
-            //showDescription();
 
             } catch (JSONException e) {
             e.printStackTrace();
         }
     }
 
-    private void showDescription(){
-        //description
-        //min temp
-        //max temp
+    private String convertTime(long time){
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yy hh.mm aa");
 
-        weatherDescription.setValue("");
-
+        return dateFormat.format(new Date(time));
     }
+
 }
 
 
