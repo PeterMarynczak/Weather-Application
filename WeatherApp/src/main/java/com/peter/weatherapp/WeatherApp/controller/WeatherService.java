@@ -14,12 +14,14 @@ import java.io.IOException;
 public class WeatherService {
     private OkHttpClient client;
     private Response response;
+    private String cityName;
+    private String unit;
 
-    public JSONObject getWeather(String name) throws JSONException {
+    public JSONObject getWeather() throws JSONException {
 
         client = new OkHttpClient();
         Request request = new Request.Builder()
-                .url("http://api.openweathermap.org/data/2.5/weather?q="+name+"&units=imperial&appid=36dee2f719fcadc7bbed52c0d7c39b75")
+                .url("http://api.openweathermap.org/data/2.5/weather?q="+getCityName()+"&units="+getUnit()+"&APPID=36dee2f719fcadc7bbed52c0d7c39b75")
                 .build();
 
         try {
@@ -32,24 +34,36 @@ public class WeatherService {
         return null;
     }
 
-    public JSONArray returnWeatherArray(String name) throws JSONException {
-        JSONArray weatherJsonArray = getWeather(name).getJSONArray("weather");
-        return weatherJsonArray;
+    public JSONArray returnWeatherArray() throws JSONException {
+        return getWeather().getJSONArray("weather");
     }
 
-    public JSONObject returnMainObject(String name) throws JSONException {
-        JSONObject mainObject = getWeather(name).getJSONObject("main");
-        return mainObject;
+    public JSONObject returnMainObject() throws JSONException {
+        return getWeather().getJSONObject("main");
     }
 
-    public JSONObject returnWindObject(String name) throws JSONException {
-        JSONObject windObject = getWeather(name).getJSONObject("wind");
-        return windObject;
+    public JSONObject returnWindObject() throws JSONException {
+        return getWeather().getJSONObject("wind");
     }
 
-    public JSONObject returnSunSet(String name) throws JSONException {
-        JSONObject sunObject = getWeather(name).getJSONObject("sys");
-        return sunObject;
+    public JSONObject returnSunSet() throws JSONException {
+        return getWeather().getJSONObject("sys");
+    }
+
+    private String getCityName() {
+        return cityName;
+    }
+
+    public void setCityName(String cityName) {
+        this.cityName = cityName;
+    }
+
+    private String getUnit() {
+        return unit;
+    }
+
+    public void setUnit(String unit) {
+        this.unit = unit;
     }
 
 }

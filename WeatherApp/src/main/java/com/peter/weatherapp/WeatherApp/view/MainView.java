@@ -128,7 +128,7 @@ public class MainView extends UI {
         items.add("F");
 
         unitSelect.setItems(items);
-        unitSelect.setValue(items.get(0));
+        unitSelect.setValue(items.get(1));
         formLayout.addComponents(unitSelect);
 
         //Adding TextField
@@ -193,25 +193,41 @@ public class MainView extends UI {
     private void updateUI() {
 
         String city = cityTextField.getValue();
+        String defaultUnit;
+        String unit;
+
+        if (unitSelect.getValue().equals("F")) {
+            defaultUnit = "imperial";
+            unitSelect.setValue("F");
+            unit = "\u00b0" + "F";
+        } else {
+            defaultUnit = "metric";
+            unitSelect.setValue("C");
+            unit = "\u00b0" + "C";
+        }
+
+        weatherService.setCityName(city);
+        weatherService.setUnit(defaultUnit);
+
         currentLocationTitle.setValue("Currently in " + city);
         try {
-            JSONObject myObject = weatherService.returnMainObject(city);
+            JSONObject myObject = weatherService.returnMainObject();
             double temp = myObject.getDouble("temp");
-            currentTemp.setValue(temp + "F");
+            currentTemp.setValue(temp + unit);
 
             //Get min, max, pressure, humidity
-            JSONObject mainObject = weatherService.returnMainObject(city);
+            JSONObject mainObject = weatherService.returnMainObject();
             double minTemp = mainObject.getDouble("temp_min");
             double maxTemp = mainObject.getDouble("temp_max");
             int pressure = mainObject.getInt("pressure");
             int humidity = mainObject.getInt("humidity");
 
             //Get Wind Speed
-            JSONObject windObject = weatherService.returnWindObject(city);
+            JSONObject windObject = weatherService.returnWindObject();
             double wind = windObject.getDouble("speed");
 
             //Get sunrise and sunset
-            JSONObject systemObject = weatherService.returnSunSet(city);
+            JSONObject systemObject = weatherService.returnSunSet();
             long sunRise = systemObject.getLong("sunrise") * 1000;
             long sunSet = systemObject.getLong("sunset") * 1000;
 
@@ -219,7 +235,7 @@ public class MainView extends UI {
             //Setup icon image
             String iconCode = "";
             String description = "";
-            JSONArray jsonArray = weatherService.returnWeatherArray(city);
+            JSONArray jsonArray = weatherService.returnWeatherArray();
 
             for (int i = 0; i < jsonArray.length() ; i++) {
               JSONObject weatherObject = jsonArray.getJSONObject(i);
@@ -233,10 +249,11 @@ public class MainView extends UI {
 
             //Update Description UI
             weatherDescription.setValue("Cloudiness: " + description);
-            weatherMin.setValue("Min: " + String.valueOf(minTemp));
-            weatherMax.setValue("Max: " + String.valueOf(maxTemp));
-            pressureLabel.setValue("Pressure: " + String.valueOf(pressure));
-            humidityLabel.setValue("Humidity: " + String.valueOf(humidity));
+            weatherDescription.addStyleName(ValoTheme.BUTTON_FRIENDLY);
+            weatherMin.setValue("Min: " + String.valueOf(minTemp)  + unit);
+            weatherMax.setValue("Max: " + String.valueOf(maxTemp) + unit);
+            pressureLabel.setValue("Pressure: " + String.valueOf(pressure) + "hpa");
+            humidityLabel.setValue("Humidity: " + String.valueOf(humidity) + "%");
             windSpeedLabel.setValue("Wind: " + String.valueOf(wind) + "m/s");
             sunRiseLabel.setValue("Sunrise: " + convertTime(sunRise));
             sunSetLabel.setValue("Sunset: " + convertTime(sunSet));
