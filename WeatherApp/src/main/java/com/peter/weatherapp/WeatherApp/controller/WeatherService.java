@@ -19,7 +19,7 @@ public class WeatherService {
 
         client = new OkHttpClient();
         Request request = new Request.Builder()
-                .url("http://api.openweathermap.org/data/2.5/weather?q="+name+"&appid=36dee2f719fcadc7bbed52c0d7c39b75")
+                .url("http://api.openweathermap.org/data/2.5/weather?q="+name+"&units=imperial&appid=36dee2f719fcadc7bbed52c0d7c39b75")
                 .build();
 
         try {

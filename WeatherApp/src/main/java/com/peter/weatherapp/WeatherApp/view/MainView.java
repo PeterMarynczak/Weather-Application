@@ -38,6 +38,8 @@ public class MainView extends UI {
     private Label windSpeedLabel;
     private Label sunRiseLabel;
     private Label sunSetLabel;
+    private ExternalResource img;
+    private Embedded iconImage;
 
     @Override
     protected void init(VaadinRequest vaadinRequest) {
@@ -47,6 +49,13 @@ public class MainView extends UI {
         setUpForm();
         dashBoardTitle();
         dashBoardDescription();
+
+        showWeatherButton.addClickListener(clickEvent -> {
+            if (!cityTextField.getValue().equals("")){
+                updateUI();
+            } else Notification.show("Please enter a city");
+
+        });
     }
 
     private void setUpLayout() {
@@ -128,8 +137,7 @@ public class MainView extends UI {
         currentLocationTitle.addStyleName(ValoTheme.LABEL_H2);
         currentLocationTitle.addStyleName(ValoTheme.LABEL_LIGHT);
 
-        ExternalResource img = new ExternalResource("http://openweathermap.org/img/wn/11n.png");
-        Embedded image = new Embedded(null, img);
+        iconImage = new Embedded(null, img);
 
         //Current Temperature Label
         currentTemp = new Label("19F");
@@ -137,7 +145,7 @@ public class MainView extends UI {
         currentTemp.addStyleName(ValoTheme.LABEL_H1);
         currentTemp.addStyleName(ValoTheme.LABEL_LIGHT);
 
-        dashBoardMain.addComponents(currentLocationTitle, image, currentTemp);
+        dashBoardMain.addComponents(currentLocationTitle, iconImage, currentTemp);
 
         mainLayout.addComponents(dashBoardMain);
 
@@ -189,6 +197,30 @@ public class MainView extends UI {
 
     }
 
+    private void updateUI() {
+
+        String city = cityTextField.getValue();
+        currentLocationTitle.setValue("Currently in " + city);
+        try {
+            JSONObject myObject = weatherService.returnMainObject(city);
+            double temp = myObject.getDouble("temp");
+            currentTemp.setValue(temp + "F");
+
+            //Setup icon image
+            String iconCode = null;
+            JSONArray jsonArray = weatherService.returnWeatherArray(city);
+
+            for (int i = 0; i < jsonArray.length() ; i++) {
+              JSONObject weatherObject = jsonArray.getJSONObject(i);
+              iconCode = weatherObject.getString("icon");
+            }
+
+            img = new ExternalResource("http://openweathermap.org/img/w/" + iconCode + ".png");
+
+            } catch (JSONException e) {
+            e.printStackTrace();
+        }
+    }
 }
 
 
