@@ -70,8 +70,8 @@ public class MainView extends UI {
         pressureLabel = new Label("Pressure: 123pa");
         humidityLabel = new Label("Humidity: 34");
         windSpeedLabel = new Label("Wind Speed: 123/hr");
-        sunRiseLabel = new Label("Sunrise");
-        sunSetLabel = new Label("Sunset");
+        sunRiseLabel = new Label("Sunrise:");
+        sunSetLabel = new Label("Sunset:");
         mainLayout = new VerticalLayout();
         mainLayout.setWidth("100%");
         mainLayout.setMargin(true);
@@ -198,6 +198,11 @@ public class MainView extends UI {
             currentTemp.setValue(temp + "F");
 
             //Get min, max, pressure, humidity
+            JSONObject mainObject = weatherService.returnMainObject(city);
+            double minTemp = mainObject.getDouble("temp_min");
+            double maxTemp = mainObject.getDouble("temp_max");
+            int pressure = mainObject.getInt("pressure");
+            int humidity = mainObject.getInt("humidity");
 
             //Setup icon image
             String iconCode = "";
@@ -216,6 +221,10 @@ public class MainView extends UI {
 
             //Update Description UI
             weatherDescription.setValue("Cloudiness: " + description);
+            weatherMin.setValue("Min: " + String.valueOf(minTemp));
+            weatherMax.setValue("Max: " + String.valueOf(maxTemp));
+            pressureLabel.setValue("Pressure " + String.valueOf(pressure));
+            humidityLabel.setValue("Humidity: " + String.valueOf(humidity));
 
             mainDescriptionLayout.addComponents(descriptionLayout, pressureLayout);
             mainLayout.addComponent(mainDescriptionLayout);
