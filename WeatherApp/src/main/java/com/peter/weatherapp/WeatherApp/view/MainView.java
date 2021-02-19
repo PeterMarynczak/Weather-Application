@@ -12,23 +12,25 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
-import javax.xml.ws.Service;
 
+import javax.swing.*;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Date;
 
-import static javax.swing.UIManager.getString;
 
 @SpringUI(path = "")
 public class MainView extends UI {
 
     @Autowired
     private WeatherService weatherService;
-    private VerticalLayout mainLayout;
+
+    //private VerticalLayout mainLayout;
+    public static VerticalLayout mainLayout;
+
     private NativeSelect<String> unitSelect;
-    private TextField cityTextField;
+    private TextField cityTextField1;
+    private TextField cityTextField2;
     private Button showWeatherButton;
     private Label currentLocationTitle;
     private Label currentTemp;
@@ -45,18 +47,28 @@ public class MainView extends UI {
     private HorizontalLayout mainDescriptionLayout;
     private VerticalLayout descriptionLayout;
     private VerticalLayout pressureLayout;
+    private LogoApp logoApp;
+    private HeaderApp headerApp;
 
     @Override
     protected void init(VaadinRequest vaadinRequest) {
         setUpLayout();
-        setHeader();
-        setLogo();
+
+        //setHeader();
+        HeaderApp headerApp = new HeaderApp();
+        headerApp.setHeader();
+
+        //setLogo();
+        LogoApp logoApp = new LogoApp();
+        logoApp.setLogo();
+
         setUpForm();
         dashBoardTitle();
+
         dashBoardDescription();
 
         showWeatherButton.addClickListener(clickEvent -> {
-            if (!cityTextField.getValue().equals("")){
+            if (!cityTextField1.getValue().equals("")){
                 updateUI();
             } else Notification.show("Please enter a city");
 
@@ -66,7 +78,7 @@ public class MainView extends UI {
     private void setUpLayout() {
 
         iconImage = new Image();
-        weatherDescription = new Label("Description: Clear Sky");
+        weatherDescription = new Label("");
         weatherMin = new Label("Min: 56F");
         weatherMax = new Label("Max: 89F");
         pressureLabel = new Label("Pressure: 123pa");
@@ -85,33 +97,33 @@ public class MainView extends UI {
 
     }
 
-    private void setHeader() {
-        HorizontalLayout headerLayout = new HorizontalLayout();
-        headerLayout.setDefaultComponentAlignment(Alignment.MIDDLE_CENTER);
+//    private void setHeader() {
+//        HorizontalLayout headerLayout = new HorizontalLayout();
+//        headerLayout.setDefaultComponentAlignment(Alignment.MIDDLE_CENTER);
+//
+//        Label title = new Label("Welcome in Weather App!");
+//        title.addStyleName(ValoTheme.LABEL_H1);
+//        title.addStyleName(ValoTheme.LABEL_BOLD);
+//        title.addStyleName(ValoTheme.LABEL_COLORED);
+//
+//        headerLayout.addComponents(title);
+//
+//        mainLayout.addComponents(headerLayout);
+//    }
 
-        Label title = new Label("Welcome in Weather App!");
-        title.addStyleName(ValoTheme.LABEL_H1);
-        title.addStyleName(ValoTheme.LABEL_BOLD);
-        title.addStyleName(ValoTheme.LABEL_COLORED);
-
-        headerLayout.addComponents(title);
-
-        mainLayout.addComponents(headerLayout);
-    }
-
-    private void setLogo() {
-        HorizontalLayout logoLayout = new HorizontalLayout();
-        logoLayout.setDefaultComponentAlignment(Alignment.MIDDLE_CENTER);
-
-        Image icon = new Image(null, new ClassResource("/weather_icon.png"));
-        icon.setWidth("125px");
-        icon.setHeight("125px");
-
-        logoLayout.addComponents(icon);
-
-        mainLayout.addComponents(logoLayout);
-
-    }
+//    private void setLogo() {
+//        HorizontalLayout logoLayout = new HorizontalLayout();
+//        logoLayout.setDefaultComponentAlignment(Alignment.MIDDLE_CENTER);
+//
+//        Image icon = new Image(null, new ClassResource("/weather_icon.png"));
+//        icon.setWidth("125px");
+//        icon.setHeight("125px");
+//
+//        logoLayout.addComponents(icon);
+//
+//        mainLayout.addComponents(logoLayout);
+//
+//    }
 
     private void setUpForm() {
 
@@ -131,12 +143,18 @@ public class MainView extends UI {
         unitSelect.setValue(items.get(1));
         formLayout.addComponents(unitSelect);
 
-        //Adding TextField
-        cityTextField = new TextField();
-        cityTextField.setWidth("300px");
-        formLayout.addComponents(cityTextField);
+        //Adding TextField for 1st Location
+        cityTextField1 = new TextField();
+        cityTextField1.setWidth("300px");
+        cityTextField1.setCaption("Enter city you are starting from");
+        formLayout.addComponents(cityTextField1);
 
-        //Add Button
+        //Adding TextField for 2nd Location
+        cityTextField2 = new TextField();
+        cityTextField2.setWidth("300px");
+        cityTextField2.setCaption("Enter destination city");
+        formLayout.addComponents(cityTextField2);
+
         showWeatherButton = new Button();
         showWeatherButton.setIcon(VaadinIcons.SEARCH);
         formLayout.addComponents(showWeatherButton);
@@ -172,27 +190,25 @@ public class MainView extends UI {
         descriptionLayout.setDefaultComponentAlignment(Alignment.MIDDLE_CENTER);
 
         descriptionLayout.addComponents(weatherDescription);
-        descriptionLayout.addComponents(weatherMin);
-        descriptionLayout.addComponents(weatherMax);
+//        descriptionLayout.addComponents(weatherMin);
+//        descriptionLayout.addComponents(weatherMax);
 
         //Description Vertical Layout
         pressureLayout = new VerticalLayout();
         pressureLayout.addStyleName(ValoTheme.FORMLAYOUT_LIGHT);
         pressureLayout.setDefaultComponentAlignment(Alignment.MIDDLE_CENTER);
 
-        pressureLayout.addComponents(pressureLabel);
-        pressureLayout.addComponents(humidityLabel);
-        pressureLayout.addComponents(windSpeedLabel);
-        pressureLayout.addComponents(sunRiseLabel);
-        pressureLayout.addComponents(sunSetLabel);
+//        pressureLayout.addComponents(pressureLabel);
+//        pressureLayout.addComponents(humidityLabel);
+//        pressureLayout.addComponents(windSpeedLabel);
+//        pressureLayout.addComponents(sunRiseLabel);
+//        pressureLayout.addComponents(sunSetLabel);
 
-        //mainDescriptionLayout.addComponents(descriptionLayout, pressureLayout);
-        //mainLayout.addComponent(mainDescriptionLayout);
     }
 
     private void updateUI() {
 
-        String city = cityTextField.getValue();
+        String city = cityTextField1.getValue();
         String defaultUnit;
         String unit;
 
@@ -248,15 +264,15 @@ public class MainView extends UI {
             mainLayout.addComponents(dashBoardMain);
 
             //Update Description UI
-            weatherDescription.setValue("Cloudiness: " + description);
-            weatherDescription.addStyleName(ValoTheme.BUTTON_FRIENDLY);
-            weatherMin.setValue("Min: " + String.valueOf(minTemp)  + unit);
-            weatherMax.setValue("Max: " + String.valueOf(maxTemp) + unit);
-            pressureLabel.setValue("Pressure: " + String.valueOf(pressure) + "hpa");
-            humidityLabel.setValue("Humidity: " + String.valueOf(humidity) + "%");
-            windSpeedLabel.setValue("Wind: " + String.valueOf(wind) + "m/s");
-            sunRiseLabel.setValue("Sunrise: " + convertTime(sunRise));
-            sunSetLabel.setValue("Sunset: " + convertTime(sunSet));
+//            weatherDescription.setValue("Cloudiness: " + description);
+//            weatherDescription.addStyleName(ValoTheme.BUTTON_FRIENDLY);
+//            weatherMin.setValue("Min: " + String.valueOf(minTemp)  + unit);
+//            weatherMax.setValue("Max: " + String.valueOf(maxTemp) + unit);
+//            pressureLabel.setValue("Pressure: " + String.valueOf(pressure) + "hpa");
+//            humidityLabel.setValue("Humidity: " + String.valueOf(humidity) + "%");
+//            windSpeedLabel.setValue("Wind: " + String.valueOf(wind) + "m/s");
+//            sunRiseLabel.setValue("Sunrise: " + convertTime(sunRise));
+//            sunSetLabel.setValue("Sunset: " + convertTime(sunSet));
 
             mainDescriptionLayout.addComponents(descriptionLayout, pressureLayout);
             mainLayout.addComponent(mainDescriptionLayout);
