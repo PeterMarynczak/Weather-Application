@@ -2,7 +2,6 @@ package com.peter.weatherapp.WeatherApp.view;
 
 import com.peter.weatherapp.WeatherApp.controller.WeatherService;
 import com.vaadin.icons.VaadinIcons;
-import com.vaadin.server.ClassResource;
 import com.vaadin.server.ExternalResource;
 import com.vaadin.server.VaadinRequest;
 import com.vaadin.spring.annotation.SpringUI;
@@ -13,7 +12,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import javax.swing.*;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -32,8 +30,10 @@ public class MainView extends UI {
     private TextField cityTextField1;
     private TextField cityTextField2;
     private Button showWeatherButton;
-    private Label currentLocationTitle;
-    private Label currentTemp;
+    private Label currentLocationTitle1;
+    private Label currentLocationTitle2;
+    private Label currentTemp1;
+    private Label currentTemp2;
     private Label weatherDescription;
     private Label weatherMin;
     private Label weatherMax;
@@ -42,13 +42,16 @@ public class MainView extends UI {
     private Label windSpeedLabel;
     private Label sunRiseLabel;
     private Label sunSetLabel;
-    private Image iconImage;
+    private Image iconImage1;
+    private Image iconImage2;
     private HorizontalLayout dashBoardMain;
     private HorizontalLayout mainDescriptionLayout;
     private VerticalLayout descriptionLayout;
     private VerticalLayout pressureLayout;
     private LogoApp logoApp;
     private HeaderApp headerApp;
+
+    private VerticalLayout myBoardMain;
 
     @Override
     protected void init(VaadinRequest vaadinRequest) {
@@ -68,7 +71,7 @@ public class MainView extends UI {
         dashBoardDescription();
 
         showWeatherButton.addClickListener(clickEvent -> {
-            if (!cityTextField1.getValue().equals("")){
+            if (((!cityTextField1.getValue().equals("") && (!cityTextField2.getValue().equals(""))))){
                 updateUI();
             } else Notification.show("Please enter a city");
 
@@ -77,7 +80,8 @@ public class MainView extends UI {
 
     private void setUpLayout() {
 
-        iconImage = new Image();
+        iconImage1 = new Image();
+        iconImage2 = new Image();
         weatherDescription = new Label("");
         weatherMin = new Label("Min: 56F");
         weatherMax = new Label("Max: 89F");
@@ -167,15 +171,24 @@ public class MainView extends UI {
         dashBoardMain = new HorizontalLayout();
         dashBoardMain.setDefaultComponentAlignment(Alignment.MIDDLE_CENTER);
 
-        currentLocationTitle = new Label("Currently in Przemyśl");
-        currentLocationTitle.addStyleName(ValoTheme.LABEL_H2);
-        currentLocationTitle.addStyleName(ValoTheme.LABEL_LIGHT);
+        currentLocationTitle1 = new Label("Currently in Przemyśl");
+        currentLocationTitle1.addStyleName(ValoTheme.LABEL_H2);
+        currentLocationTitle1.addStyleName(ValoTheme.LABEL_LIGHT);
+
+        currentLocationTitle2 = new Label("Currently in Orły");
+        currentLocationTitle2.addStyleName(ValoTheme.LABEL_H2);
+        currentLocationTitle2.addStyleName(ValoTheme.LABEL_LIGHT);
 
         //Current Temperature Label
-        currentTemp = new Label("19F");
-        currentTemp.addStyleName(ValoTheme.LABEL_BOLD);
-        currentTemp.addStyleName(ValoTheme.LABEL_H1);
-        currentTemp.addStyleName(ValoTheme.LABEL_LIGHT);
+        currentTemp1 = new Label("19F");
+        currentTemp1.addStyleName(ValoTheme.LABEL_BOLD);
+        currentTemp1.addStyleName(ValoTheme.LABEL_H1);
+        currentTemp1.addStyleName(ValoTheme.LABEL_LIGHT);
+
+        currentTemp2 = new Label("10F");
+        currentTemp2.addStyleName(ValoTheme.LABEL_BOLD);
+        currentTemp2.addStyleName(ValoTheme.LABEL_H1);
+        currentTemp2.addStyleName(ValoTheme.LABEL_LIGHT);
 
     }
 
@@ -208,7 +221,9 @@ public class MainView extends UI {
 
     private void updateUI() {
 
-        String city = cityTextField1.getValue();
+        String city1 = cityTextField1.getValue();
+        String city2 = cityTextField2.getValue();
+
         String defaultUnit;
         String unit;
 
@@ -222,14 +237,16 @@ public class MainView extends UI {
             unit = "\u00b0" + "C";
         }
 
-        weatherService.setCityName(city);
+        weatherService.setCityName(city1);
         weatherService.setUnit(defaultUnit);
 
-        currentLocationTitle.setValue("Currently in " + city);
+        currentLocationTitle1.setValue("Currently in " + city1);
+        currentLocationTitle2.setValue("Currently in " + city2);
+
         try {
             JSONObject myObject = weatherService.returnMainObject();
             double temp = myObject.getDouble("temp");
-            currentTemp.setValue(temp + unit);
+            currentTemp1.setValue(temp + unit);
 
             //Get min, max, pressure, humidity
             JSONObject mainObject = weatherService.returnMainObject();
@@ -247,20 +264,20 @@ public class MainView extends UI {
             long sunRise = systemObject.getLong("sunrise") * 1000;
             long sunSet = systemObject.getLong("sunset") * 1000;
 
-
             //Setup icon image
-            String iconCode = "";
+            String iconCode1 = "";
             String description = "";
             JSONArray jsonArray = weatherService.returnWeatherArray();
 
             for (int i = 0; i < jsonArray.length() ; i++) {
               JSONObject weatherObject = jsonArray.getJSONObject(i);
               description = weatherObject.getString("description");
-              iconCode = weatherObject.getString("icon");
-              System.out.println(iconCode);
+              iconCode1 = weatherObject.getString("icon");
             }
-            iconImage.setSource(new ExternalResource("http://openweathermap.org/img/w/" + iconCode + ".png"));
-            dashBoardMain.addComponents(currentLocationTitle, iconImage, currentTemp);
+            //System.out.println(iconCode1);
+            iconImage1.setSource(new ExternalResource("http://openweathermap.org/img/w/" + iconCode1 + ".png"));
+
+            dashBoardMain.addComponents(currentLocationTitle1, iconImage1, currentTemp1);
             mainLayout.addComponents(dashBoardMain);
 
             //Update Description UI
@@ -274,10 +291,36 @@ public class MainView extends UI {
 //            sunRiseLabel.setValue("Sunrise: " + convertTime(sunRise));
 //            sunSetLabel.setValue("Sunset: " + convertTime(sunSet));
 
-            mainDescriptionLayout.addComponents(descriptionLayout, pressureLayout);
-            mainLayout.addComponent(mainDescriptionLayout);
+            //mainDescriptionLayout.addComponents(descriptionLayout, pressureLayout);
+            //mainLayout.addComponent(mainDescriptionLayout);
 
             } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        weatherService.setCityName(city2);
+        try {
+            JSONObject myObject = weatherService.returnMainObject();
+            double temp = myObject.getDouble("temp");
+            currentTemp2.setValue(temp + unit);
+
+            //Setup icon image
+            String iconCode2 = "";
+            String description = "";
+            JSONArray jsonArray = weatherService.returnWeatherArray();
+
+            for (int i = 0; i < jsonArray.length() ; i++) {
+                JSONObject weatherObject = jsonArray.getJSONObject(i);
+                description = weatherObject.getString("description");
+                iconCode2 = weatherObject.getString("icon");
+            }
+            iconImage2.setSource(new ExternalResource("http://openweathermap.org/img/w/" + iconCode2 + ".png"));
+            dashBoardMain.addComponents(currentLocationTitle2, iconImage2, currentTemp2);
+            mainLayout.addComponents(dashBoardMain);
+            //System.out.println(iconCode2);
+
+
+        } catch (JSONException e) {
             e.printStackTrace();
         }
     }
