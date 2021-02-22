@@ -14,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import java.io.IOException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -34,6 +35,13 @@ public class MainView extends UI {
     private Label currentLocationTitle2;
     private Label currentLocationTitle3;
     private Label currentLocationTitle4;
+    private Label currentLocationTitle5;
+    private Label currentLocationTitle6;
+    private Label currentLocationTitle7;
+    private Label currentLocationTitle8;
+    private Label currentLocationTitle9;
+    private Label currentLocationTitle10;
+
 
     private Label currentTemp1;
     private Label currentTemp2;
@@ -280,11 +288,24 @@ public class MainView extends UI {
         weatherService.setCityName(city1);
         weatherService.setUnit(defaultUnit);
 
+        LocalDate thirdDay = LocalDate.now().plusDays(2);
+        LocalDate fourthDay = LocalDate.now().plusDays(3);
+        LocalDate fifthDay = LocalDate.now().plusDays(4);
+
         currentLocationTitle1.setValue("Today in " + city1);
         currentLocationTitle2.setValue("Today in " + city2);
 
         currentLocationTitle3.setValue("Tomorrow in " + city1);
         currentLocationTitle4.setValue("Tomorrow in " + city2);
+
+        currentLocationTitle5.setValue("On " + thirdDay + " in " + city1);
+        currentLocationTitle6.setValue("On " + thirdDay + " in " + city2);
+
+        currentLocationTitle7.setValue("On " + fourthDay + " in " + city1);
+        currentLocationTitle8.setValue("On " + fourthDay + " in " + city2);
+
+        currentLocationTitle9.setValue("On " + fifthDay + " in " + city1);
+        currentLocationTitle10.setValue("On " + fifthDay + " in " + city2);
 
 
         try {
@@ -418,8 +439,11 @@ public class MainView extends UI {
         currentLocationTitle4.setValue("Tomorrow in " + city2);
 
         JSONArray myArray = weatherService.returnTestObject();
+        String[] iconCodes = new String[5];
 
+        int iconCodesIterator = 0;
         for (int i = 0; i < 40; i+=8) {
+
 
             JSONObject myObject = (JSONObject) myArray.getJSONObject(i).get("main");
             double temp = myObject.getDouble("temp");
@@ -428,27 +452,22 @@ public class MainView extends UI {
             //Setup icon image
             String iconCode1 = "";
 
+
             //getting weather description from Weather API
             JSONArray jsonArray = myArray.getJSONObject(i).getJSONArray("weather");
 
             for (int j = 0; j < jsonArray.length() ; j++) {
                 JSONObject weatherObject = jsonArray.getJSONObject(j);
                 iconCode1 = weatherObject.getString("icon");
-                System.out.println(iconCode1);
+                iconCodes[iconCodesIterator] = iconCode1;
+                //System.out.println(iconCode1);
             }
+            iconCodesIterator++;
 
+        }
 
-
-
-
-//            JSONObject weatherObject = jsonArray.getJSONObject(i);
-//            iconCode1 = weatherObject.getString("icon");
-//            iconImage1.setSource(new ExternalResource("http://openweathermap.org/img/w/" + iconCode1 + ".png"));
-//            System.out.println(iconCode1);
-
-            //System.out.println(jsonArray);
-            //System.out.println(temp);
-
+        for (String temp : iconCodes) {
+            System.out.println(temp);
         }
 
 
