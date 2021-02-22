@@ -392,9 +392,6 @@ public class MainView extends UI {
 
     public void updateUI() throws JSONException, IOException {
 
-//        weatherService.setCityName("Roma");
-//        weatherService.setUnit("metric");
-
         String city1 = cityTextField1.getValue();
         String city2 = cityTextField2.getValue();
 
@@ -414,24 +411,45 @@ public class MainView extends UI {
         weatherService.setCityName(city1);
         weatherService.setUnit(defaultUnit);
 
+        currentLocationTitle1.setValue("Today in " + city1);
+        currentLocationTitle2.setValue("Today in " + city2);
+
+        currentLocationTitle3.setValue("Tomorrow in " + city1);
+        currentLocationTitle4.setValue("Tomorrow in " + city2);
+
         JSONArray myArray = weatherService.returnTestObject();
-        //System.out.println(myArray.get(0));
 
         for (int i = 0; i < 40; i+=8) {
-            //System.out.println("current element is: " + myArray.getJSONObject(i));
-            //System.out.println(myArray.getJSONObject(0).getString("main"));
+
             JSONObject myObject = (JSONObject) myArray.getJSONObject(i).get("main");
             double temp = myObject.getDouble("temp");
-            System.out.println(temp);
+            currentTemp1.setValue(temp + unit);
+
+            //Setup icon image
+            String iconCode1 = "";
+
+            //getting weather description from Weather API
+            JSONArray jsonArray = myArray.getJSONObject(i).getJSONArray("weather");
+
+            for (int j = 0; j < jsonArray.length() ; j++) {
+                JSONObject weatherObject = jsonArray.getJSONObject(j);
+                iconCode1 = weatherObject.getString("icon");
+                System.out.println(iconCode1);
+            }
+
+
+
+
+
+//            JSONObject weatherObject = jsonArray.getJSONObject(i);
+//            iconCode1 = weatherObject.getString("icon");
+//            iconImage1.setSource(new ExternalResource("http://openweathermap.org/img/w/" + iconCode1 + ".png"));
+//            System.out.println(iconCode1);
+
+            //System.out.println(jsonArray);
+            //System.out.println(temp);
 
         }
-
-        //System.out.println(myArray.getJSONObject(0).getString("main"));
-
-//        JSONObject myObject = (JSONObject) myArray.getJSONObject(0).get("main");
-//        double temp = myObject.getDouble("temp_min");
-//        System.out.println(temp);
-
 
 
     }
@@ -457,3 +475,25 @@ public class MainView extends UI {
 //        } catch (JSONException e) {
 //            e.printStackTrace();
 //        }
+
+//Test from 5 days getting weather
+//System.out.println(myArray.getJSONObject(0).getString("main"));
+//        JSONObject myObject = (JSONObject) myArray.getJSONObject(0).get("main");
+//        double temp = myObject.getDouble("temp_min");
+//        System.out.println(temp);
+
+//        weatherService.setCityName("Roma");
+//        weatherService.setUnit("metric");
+
+//    JSONArray myArray = weatherService.returnTestObject();
+//System.out.println(myArray.get(0));
+
+/*
+        for (int i = 0; i < 40; i+=8) {
+        //System.out.println("current element is: " + myArray.getJSONObject(i));
+        //System.out.println(myArray.getJSONObject(0).getString("main"));
+        JSONObject myObject = (JSONObject) myArray.getJSONObject(i).get("main");
+        double temp = myObject.getDouble("temp");
+        System.out.println(temp);
+
+        }*/
