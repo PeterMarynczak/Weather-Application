@@ -12,6 +12,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -22,18 +23,29 @@ public class MainView extends UI {
 
     @Autowired
     private WeatherService weatherService;
-
     //private VerticalLayout mainLayout;
     public static VerticalLayout mainLayout;
-
     private NativeSelect<String> unitSelect;
     private TextField cityTextField1;
     private TextField cityTextField2;
     private Button showWeatherButton;
+
     private Label currentLocationTitle1;
     private Label currentLocationTitle2;
+    private Label currentLocationTitle3;
+    private Label currentLocationTitle4;
+
     private Label currentTemp1;
     private Label currentTemp2;
+    private Label currentTemp3;
+    private Label currentTemp4;
+
+    private Image iconImage1;
+    private Image iconImage2;
+    private Image iconImage3;
+    private Image iconImage4;
+
+
     private Label weatherDescription;
     private Label weatherMin;
     private Label weatherMax;
@@ -42,16 +54,11 @@ public class MainView extends UI {
     private Label windSpeedLabel;
     private Label sunRiseLabel;
     private Label sunSetLabel;
-    private Image iconImage1;
-    private Image iconImage2;
-    private HorizontalLayout dashBoardMain;
+    private HorizontalLayout dashBoardMainFirstDay;
+    private HorizontalLayout dashBoardMainSecondDay;
     private HorizontalLayout mainDescriptionLayout;
     private VerticalLayout descriptionLayout;
     private VerticalLayout pressureLayout;
-    private LogoApp logoApp;
-    private HeaderApp headerApp;
-
-    private VerticalLayout myBoardMain;
 
     @Override
     protected void init(VaadinRequest vaadinRequest) {
@@ -64,15 +71,21 @@ public class MainView extends UI {
         //setLogo();
         LogoApp logoApp = new LogoApp();
         logoApp.setLogo();
-
         setUpForm();
         dashBoardTitle();
-
-        dashBoardDescription();
+        //dashBoardDescription();
 
         showWeatherButton.addClickListener(clickEvent -> {
             if (((!cityTextField1.getValue().equals("") && (!cityTextField2.getValue().equals(""))))){
-                updateUI();
+
+
+                try {
+                    updateUI();
+                } catch (JSONException | IOException e) {
+                    e.printStackTrace();
+                }
+
+
             } else Notification.show("Please enter a city");
 
         });
@@ -82,6 +95,9 @@ public class MainView extends UI {
 
         iconImage1 = new Image();
         iconImage2 = new Image();
+        iconImage3 = new Image();
+        iconImage4 = new Image();
+
         weatherDescription = new Label("");
         weatherMin = new Label("Min: 56F");
         weatherMax = new Label("Max: 89F");
@@ -168,8 +184,11 @@ public class MainView extends UI {
 
     private void dashBoardTitle() {
 
-        dashBoardMain = new HorizontalLayout();
-        dashBoardMain.setDefaultComponentAlignment(Alignment.MIDDLE_CENTER);
+        dashBoardMainFirstDay = new HorizontalLayout();
+        dashBoardMainFirstDay.setDefaultComponentAlignment(Alignment.MIDDLE_CENTER);
+
+        dashBoardMainSecondDay = new HorizontalLayout();
+        dashBoardMainSecondDay.setDefaultComponentAlignment(Alignment.MIDDLE_CENTER);
 
         currentLocationTitle1 = new Label("Currently in Przemyśl");
         currentLocationTitle1.addStyleName(ValoTheme.LABEL_H2);
@@ -178,6 +197,15 @@ public class MainView extends UI {
         currentLocationTitle2 = new Label("Currently in Orły");
         currentLocationTitle2.addStyleName(ValoTheme.LABEL_H2);
         currentLocationTitle2.addStyleName(ValoTheme.LABEL_LIGHT);
+
+        currentLocationTitle3 = new Label("Currently in Przemyśl");
+        currentLocationTitle3.addStyleName(ValoTheme.LABEL_H2);
+        currentLocationTitle3.addStyleName(ValoTheme.LABEL_LIGHT);
+
+        currentLocationTitle4 = new Label("Currently in Orły");
+        currentLocationTitle4.addStyleName(ValoTheme.LABEL_H2);
+        currentLocationTitle4.addStyleName(ValoTheme.LABEL_LIGHT);
+
 
         //Current Temperature Label
         currentTemp1 = new Label("19F");
@@ -190,26 +218,38 @@ public class MainView extends UI {
         currentTemp2.addStyleName(ValoTheme.LABEL_H1);
         currentTemp2.addStyleName(ValoTheme.LABEL_LIGHT);
 
+        //Current Temperature Label
+        currentTemp3 = new Label("19F");
+        currentTemp3.addStyleName(ValoTheme.LABEL_BOLD);
+        currentTemp3.addStyleName(ValoTheme.LABEL_H1);
+        currentTemp3.addStyleName(ValoTheme.LABEL_LIGHT);
+
+        currentTemp4 = new Label("10F");
+        currentTemp4.addStyleName(ValoTheme.LABEL_BOLD);
+        currentTemp4.addStyleName(ValoTheme.LABEL_H1);
+        currentTemp4.addStyleName(ValoTheme.LABEL_LIGHT);
+
+
     }
 
     private void dashBoardDescription() {
 
-        mainDescriptionLayout = new HorizontalLayout();
-        mainDescriptionLayout.setDefaultComponentAlignment(Alignment.MIDDLE_CENTER);
+//        mainDescriptionLayout = new HorizontalLayout();
+//        mainDescriptionLayout.setDefaultComponentAlignment(Alignment.MIDDLE_CENTER);
 
         //Description Vertical Layout
-        descriptionLayout = new VerticalLayout();
-        descriptionLayout.addStyleName(ValoTheme.FORMLAYOUT_LIGHT);
-        descriptionLayout.setDefaultComponentAlignment(Alignment.MIDDLE_CENTER);
+//        descriptionLayout = new VerticalLayout();
+//        descriptionLayout.addStyleName(ValoTheme.FORMLAYOUT_LIGHT);
+//        descriptionLayout.setDefaultComponentAlignment(Alignment.MIDDLE_CENTER);
 
-        descriptionLayout.addComponents(weatherDescription);
+//        descriptionLayout.addComponents(weatherDescription);
 //        descriptionLayout.addComponents(weatherMin);
 //        descriptionLayout.addComponents(weatherMax);
 
         //Description Vertical Layout
-        pressureLayout = new VerticalLayout();
-        pressureLayout.addStyleName(ValoTheme.FORMLAYOUT_LIGHT);
-        pressureLayout.setDefaultComponentAlignment(Alignment.MIDDLE_CENTER);
+//        pressureLayout = new VerticalLayout();
+//        pressureLayout.addStyleName(ValoTheme.FORMLAYOUT_LIGHT);
+//        pressureLayout.setDefaultComponentAlignment(Alignment.MIDDLE_CENTER);
 
 //        pressureLayout.addComponents(pressureLabel);
 //        pressureLayout.addComponents(humidityLabel);
@@ -219,7 +259,7 @@ public class MainView extends UI {
 
     }
 
-    private void updateUI() {
+    private void updateUI2() {
 
         String city1 = cityTextField1.getValue();
         String city2 = cityTextField2.getValue();
@@ -240,8 +280,12 @@ public class MainView extends UI {
         weatherService.setCityName(city1);
         weatherService.setUnit(defaultUnit);
 
-        currentLocationTitle1.setValue("Currently in " + city1);
-        currentLocationTitle2.setValue("Currently in " + city2);
+        currentLocationTitle1.setValue("Today in " + city1);
+        currentLocationTitle2.setValue("Today in " + city2);
+
+        currentLocationTitle3.setValue("Tomorrow in " + city1);
+        currentLocationTitle4.setValue("Tomorrow in " + city2);
+
 
         try {
             JSONObject myObject = weatherService.returnMainObject();
@@ -274,11 +318,14 @@ public class MainView extends UI {
               description = weatherObject.getString("description");
               iconCode1 = weatherObject.getString("icon");
             }
-            //System.out.println(iconCode1);
+
             iconImage1.setSource(new ExternalResource("http://openweathermap.org/img/w/" + iconCode1 + ".png"));
 
-            dashBoardMain.addComponents(currentLocationTitle1, iconImage1, currentTemp1);
-            mainLayout.addComponents(dashBoardMain);
+            //test for 2nd row
+            iconImage3.setSource(new ExternalResource("http://openweathermap.org/img/w/" + iconCode1 + ".png"));
+
+            dashBoardMainFirstDay.addComponents(currentLocationTitle1, iconImage1, currentTemp1);
+            mainLayout.addComponents(dashBoardMainFirstDay);
 
             //Update Description UI
 //            weatherDescription.setValue("Cloudiness: " + description);
@@ -293,6 +340,7 @@ public class MainView extends UI {
 
             //mainDescriptionLayout.addComponents(descriptionLayout, pressureLayout);
             //mainLayout.addComponent(mainDescriptionLayout);
+
 
             } catch (JSONException e) {
             e.printStackTrace();
@@ -315,14 +363,25 @@ public class MainView extends UI {
                 iconCode2 = weatherObject.getString("icon");
             }
             iconImage2.setSource(new ExternalResource("http://openweathermap.org/img/w/" + iconCode2 + ".png"));
-            dashBoardMain.addComponents(currentLocationTitle2, iconImage2, currentTemp2);
-            mainLayout.addComponents(dashBoardMain);
-            //System.out.println(iconCode2);
+            dashBoardMainFirstDay.addComponents(currentLocationTitle2, iconImage2, currentTemp2);
+            mainLayout.addComponents(dashBoardMainFirstDay);
+
+            //test for 2nd row
+            iconImage4.setSource(new ExternalResource("http://openweathermap.org/img/w/" + iconCode2 + ".png"));
 
 
         } catch (JSONException e) {
             e.printStackTrace();
         }
+
+
+        dashBoardMainSecondDay.addComponents(currentLocationTitle3, iconImage3, currentTemp3);
+        mainLayout.addComponents(dashBoardMainSecondDay);
+
+        dashBoardMainSecondDay.addComponents(currentLocationTitle4, iconImage4, currentTemp4);
+        mainLayout.addComponents(dashBoardMainSecondDay);
+
+
     }
 
     private String convertTime(long time){
@@ -331,18 +390,54 @@ public class MainView extends UI {
         return dateFormat.format(new Date(time));
     }
 
+    public void updateUI() throws JSONException, IOException {
+
+//        weatherService.setCityName("Roma");
+//        weatherService.setUnit("metric");
+
+        String city1 = cityTextField1.getValue();
+        String city2 = cityTextField2.getValue();
+
+        String defaultUnit;
+        String unit;
+
+        if (unitSelect.getValue().equals("F")) {
+            defaultUnit = "imperial";
+            unitSelect.setValue("F");
+            unit = "\u00b0" + "F";
+        } else {
+            defaultUnit = "metric";
+            unitSelect.setValue("C");
+            unit = "\u00b0" + "C";
+        }
+
+        weatherService.setCityName(city1);
+        weatherService.setUnit(defaultUnit);
+
+        JSONArray myArray = weatherService.returnTestObject();
+        //System.out.println(myArray.get(0));
+
+        for (int i = 0; i < 40; i+=8) {
+            //System.out.println("current element is: " + myArray.getJSONObject(i));
+            //System.out.println(myArray.getJSONObject(0).getString("main"));
+            JSONObject myObject = (JSONObject) myArray.getJSONObject(i).get("main");
+            double temp = myObject.getDouble("temp");
+            System.out.println(temp);
+
+        }
+
+        //System.out.println(myArray.getJSONObject(0).getString("main"));
+
+//        JSONObject myObject = (JSONObject) myArray.getJSONObject(0).get("main");
+//        double temp = myObject.getDouble("temp_min");
+//        System.out.println(temp);
+
+
+
+    }
+
+
 }
-
-
-
-
-
-
-
-
-
-
-
 
 
 

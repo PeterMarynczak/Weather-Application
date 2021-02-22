@@ -12,18 +12,35 @@ import java.io.IOException;
 
 @Service
 public class WeatherService {
+
     private OkHttpClient client;
     private Response response;
     private String cityName;
     private String unit;
 
-    public JSONObject getWeather() throws JSONException {
+/*    public JSONObject getWeather() throws JSONException {
 
         client = new OkHttpClient();
         Request request = new Request.Builder()
                 .url("http://api.openweathermap.org/data/2.5/weather?q="+getCityName()+"&units="+getUnit()+"&APPID=36dee2f719fcadc7bbed52c0d7c39b75")
                 .build();
 
+        try {
+            response = client.newCall(request).execute();
+            return new JSONObject(response.body().string());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return null;
+    }*/
+
+        public JSONObject getWeather() throws JSONException {
+
+        client = new OkHttpClient();
+        Request request = new Request.Builder()
+                .url("http://api.openweathermap.org/data/2.5/forecast?q="+getCityName()+"&units="+getUnit()+"&APPID=36dee2f719fcadc7bbed52c0d7c39b75")
+                .build();
         try {
             response = client.newCall(request).execute();
             return new JSONObject(response.body().string());
@@ -65,5 +82,12 @@ public class WeatherService {
     public void setUnit(String unit) {
         this.unit = unit;
     }
+
+
+
+    public JSONArray returnTestObject() throws JSONException {
+        return getWeather().getJSONArray("list");
+    }
+
 
 }
