@@ -47,11 +47,23 @@ public class MainView extends UI {
     private Label currentTemp2;
     private Label currentTemp3;
     private Label currentTemp4;
+    private Label currentTemp5;
+    private Label currentTemp6;
+    private Label currentTemp7;
+    private Label currentTemp8;
+    private Label currentTemp9;
+    private Label currentTemp10;
 
     private Image iconImage1;
     private Image iconImage2;
     private Image iconImage3;
     private Image iconImage4;
+    private Image iconImage5;
+    private Image iconImage6;
+    private Image iconImage7;
+    private Image iconImage8;
+    private Image iconImage9;
+    private Image iconImage10;
 
 
     private Label weatherDescription;
@@ -86,7 +98,6 @@ public class MainView extends UI {
         showWeatherButton.addClickListener(clickEvent -> {
             if (((!cityTextField1.getValue().equals("") && (!cityTextField2.getValue().equals(""))))){
 
-
                 try {
                     updateUI();
                 } catch (JSONException | IOException e) {
@@ -105,6 +116,12 @@ public class MainView extends UI {
         iconImage2 = new Image();
         iconImage3 = new Image();
         iconImage4 = new Image();
+        iconImage5 = new Image();
+        iconImage6 = new Image();
+        iconImage7 = new Image();
+        iconImage8 = new Image();
+        iconImage9 = new Image();
+        iconImage10 = new Image();
 
         weatherDescription = new Label("");
         weatherMin = new Label("Min: 56F");
@@ -214,6 +231,30 @@ public class MainView extends UI {
         currentLocationTitle4.addStyleName(ValoTheme.LABEL_H2);
         currentLocationTitle4.addStyleName(ValoTheme.LABEL_LIGHT);
 
+        currentLocationTitle5 = new Label("Currently in Przemyśl");
+        currentLocationTitle5.addStyleName(ValoTheme.LABEL_H2);
+        currentLocationTitle5.addStyleName(ValoTheme.LABEL_LIGHT);
+
+        currentLocationTitle6 = new Label("Currently in Orły");
+        currentLocationTitle6.addStyleName(ValoTheme.LABEL_H2);
+        currentLocationTitle6.addStyleName(ValoTheme.LABEL_LIGHT);
+
+        currentLocationTitle7 = new Label("Currently in Przemyśl");
+        currentLocationTitle7.addStyleName(ValoTheme.LABEL_H2);
+        currentLocationTitle7.addStyleName(ValoTheme.LABEL_LIGHT);
+
+        currentLocationTitle8 = new Label("Currently in Orły");
+        currentLocationTitle8.addStyleName(ValoTheme.LABEL_H2);
+        currentLocationTitle8.addStyleName(ValoTheme.LABEL_LIGHT);
+
+        currentLocationTitle9 = new Label("Currently in Przemyśl");
+        currentLocationTitle9.addStyleName(ValoTheme.LABEL_H2);
+        currentLocationTitle9.addStyleName(ValoTheme.LABEL_LIGHT);
+
+        currentLocationTitle10 = new Label("Currently in Orły");
+        currentLocationTitle10.addStyleName(ValoTheme.LABEL_H2);
+        currentLocationTitle10.addStyleName(ValoTheme.LABEL_LIGHT);
+
 
         //Current Temperature Label
         currentTemp1 = new Label("19F");
@@ -236,6 +277,36 @@ public class MainView extends UI {
         currentTemp4.addStyleName(ValoTheme.LABEL_BOLD);
         currentTemp4.addStyleName(ValoTheme.LABEL_H1);
         currentTemp4.addStyleName(ValoTheme.LABEL_LIGHT);
+
+        //Current Temperature Label
+        currentTemp5 = new Label("19F");
+        currentTemp5.addStyleName(ValoTheme.LABEL_BOLD);
+        currentTemp5.addStyleName(ValoTheme.LABEL_H1);
+        currentTemp5.addStyleName(ValoTheme.LABEL_LIGHT);
+
+        currentTemp6 = new Label("10F");
+        currentTemp6.addStyleName(ValoTheme.LABEL_BOLD);
+        currentTemp6.addStyleName(ValoTheme.LABEL_H1);
+        currentTemp6.addStyleName(ValoTheme.LABEL_LIGHT);
+
+        currentTemp7 = new Label("10F");
+        currentTemp7.addStyleName(ValoTheme.LABEL_BOLD);
+        currentTemp7.addStyleName(ValoTheme.LABEL_H1);
+        currentTemp7.addStyleName(ValoTheme.LABEL_LIGHT);
+
+        currentTemp8 = new Label("10F");
+        currentTemp8.addStyleName(ValoTheme.LABEL_BOLD);
+        currentTemp8.addStyleName(ValoTheme.LABEL_H1);
+        currentTemp8.addStyleName(ValoTheme.LABEL_LIGHT);
+
+        currentTemp9 = new Label("10F");
+        currentTemp9.addStyleName(ValoTheme.LABEL_BOLD);
+        currentTemp9.addStyleName(ValoTheme.LABEL_H1);
+
+        currentTemp10 = new Label("10F");
+        currentTemp10.addStyleName(ValoTheme.LABEL_BOLD);
+        currentTemp10.addStyleName(ValoTheme.LABEL_H1);
+        currentTemp10.addStyleName(ValoTheme.LABEL_LIGHT);
 
 
     }
@@ -413,8 +484,8 @@ public class MainView extends UI {
 
     public void updateUI() throws JSONException, IOException {
 
-        String city1 = cityTextField1.getValue();
-        String city2 = cityTextField2.getValue();
+        String firstLocation = cityTextField1.getValue();
+        String secondLocation = cityTextField2.getValue();
 
         String defaultUnit;
         String unit;
@@ -429,47 +500,149 @@ public class MainView extends UI {
             unit = "\u00b0" + "C";
         }
 
-        weatherService.setCityName(city1);
+        //setting main City as 1st Location entered by User
+        weatherService.setCityName(firstLocation);
+        //setting default temperature unit chose by User
         weatherService.setUnit(defaultUnit);
 
-        currentLocationTitle1.setValue("Today in " + city1);
-        currentLocationTitle2.setValue("Today in " + city2);
+        currentLocationTitle1.setValue("Today in " + firstLocation);
+        currentLocationTitle2.setValue("Today in " + secondLocation);
 
-        currentLocationTitle3.setValue("Tomorrow in " + city1);
-        currentLocationTitle4.setValue("Tomorrow in " + city2);
+        currentLocationTitle3.setValue("Tomorrow in " + firstLocation);
+        currentLocationTitle4.setValue("Tomorrow in " + secondLocation);
 
-        JSONArray myArray = weatherService.returnTestObject();
-        String[] iconCodes = new String[5];
+        //Getting current day and setting 3rd, 4th and 5th day
+        LocalDate thirdDay = LocalDate.now().plusDays(2);
+        LocalDate fourthDay = LocalDate.now().plusDays(3);
+        LocalDate fifthDay = LocalDate.now().plusDays(4);
+
+        currentLocationTitle5.setValue("On " + thirdDay.toString() + " in " + firstLocation);
+        currentLocationTitle6.setValue("On " + thirdDay.toString() + " in " + secondLocation);
+
+        currentLocationTitle7.setValue("On " + fourthDay.toString() + " in " + firstLocation);
+        currentLocationTitle8.setValue("On " + fourthDay.toString() + " in " + secondLocation);
+
+        currentLocationTitle9.setValue("On " + fifthDay.toString() + " in " + firstLocation);
+        currentLocationTitle10.setValue("On " + fifthDay.toString() + " in " + secondLocation);
+
+        //getting  JSON Array for objects from 1st Location
+        JSONArray arrayFromFirstLocation = weatherService.returnTestObject();
+
+        String[] iconCodesFromFirstLocation = new String[5];
+        String[] iconCodesFromSecondLocation = new String[5];
+
+        Double[] tempValuesFromFirstLocation = new Double[5];
+        Double[] tempValuesFromSecondLocation = new Double[5];
 
         int iconCodesIterator = 0;
+
         for (int i = 0; i < 40; i+=8) {
 
-
-            JSONObject myObject = (JSONObject) myArray.getJSONObject(i).get("main");
+            JSONObject myObject = (JSONObject) arrayFromFirstLocation.getJSONObject(i).get("main");
             double temp = myObject.getDouble("temp");
-            currentTemp1.setValue(temp + unit);
+
+            //locating temp values into an array
+            tempValuesFromFirstLocation[iconCodesIterator]= temp;
 
             //Setup icon image
             String iconCode1 = "";
 
-
             //getting weather description from Weather API
-            JSONArray jsonArray = myArray.getJSONObject(i).getJSONArray("weather");
+            JSONArray jsonArray = arrayFromFirstLocation.getJSONObject(i).getJSONArray("weather");
 
             for (int j = 0; j < jsonArray.length() ; j++) {
                 JSONObject weatherObject = jsonArray.getJSONObject(j);
                 iconCode1 = weatherObject.getString("icon");
-                iconCodes[iconCodesIterator] = iconCode1;
+                //locating icon values into an array
+                iconCodesFromFirstLocation[iconCodesIterator] = iconCode1;
                 //System.out.println(iconCode1);
             }
             iconCodesIterator++;
+        }
+        //entering temp value for each day for 1st Location
+        currentTemp1.setValue(tempValuesFromFirstLocation[0] + unit);
+        currentTemp3.setValue(tempValuesFromFirstLocation[1] + unit);
+        currentTemp5.setValue(tempValuesFromFirstLocation[2] + unit);
+        currentTemp7.setValue(tempValuesFromFirstLocation[3] + unit);
+        currentTemp9.setValue(tempValuesFromFirstLocation[4] + unit);
 
+        //setting source for iconImage for 1st Location
+        iconImage1.setSource(new ExternalResource("http://openweathermap.org/img/w/" + iconCodesFromFirstLocation[0] + ".png"));
+        iconImage3.setSource(new ExternalResource("http://openweathermap.org/img/w/" + iconCodesFromFirstLocation[1] + ".png"));
+        iconImage5.setSource(new ExternalResource("http://openweathermap.org/img/w/" + iconCodesFromFirstLocation[2] + ".png"));
+        iconImage7.setSource(new ExternalResource("http://openweathermap.org/img/w/" + iconCodesFromFirstLocation[3] + ".png"));
+        iconImage9.setSource(new ExternalResource("http://openweathermap.org/img/w/" + iconCodesFromFirstLocation[4] + ".png"));
+
+        //setting main City as 1st Location entered by User
+        weatherService.setCityName(secondLocation);
+        //getting new JSON Array for objects from 2nd Location
+        JSONArray arrayFromSecondLocation = weatherService.returnTestObject();
+
+        iconCodesIterator = 0;
+
+        for (int i = 0; i < 40; i+=8) {
+
+            JSONObject myObject = (JSONObject) arrayFromSecondLocation.getJSONObject(i).get("main");
+            double temp = myObject.getDouble("temp");
+
+            //locating temp values into an array
+            tempValuesFromSecondLocation[iconCodesIterator]= temp;
+
+            //Setup icon image
+            String iconCode1 = "";
+
+            //getting weather description from Weather API
+            JSONArray jsonArray = arrayFromSecondLocation.getJSONObject(i).getJSONArray("weather");
+
+            for (int j = 0; j < jsonArray.length() ; j++) {
+                JSONObject weatherObject = jsonArray.getJSONObject(j);
+                iconCode1 = weatherObject.getString("icon");
+                //locating icon values into an array
+                iconCodesFromSecondLocation[iconCodesIterator] = iconCode1;
+                //System.out.println(iconCode1);
+            }
+            iconCodesIterator++;
         }
 
-        for (String temp : iconCodes) {
+        for (Double temp : tempValuesFromFirstLocation) {
             System.out.println(temp);
         }
 
+        for (Double temp : tempValuesFromSecondLocation) {
+            System.out.println(temp);
+        }
+
+        //entering temp value for each day for 2nd Location
+        currentTemp2.setValue(tempValuesFromSecondLocation[0] + unit);
+        currentTemp4.setValue(tempValuesFromSecondLocation[1] + unit);
+        currentTemp6.setValue(tempValuesFromSecondLocation[2] + unit);
+        currentTemp8.setValue(tempValuesFromSecondLocation[3] + unit);
+        currentTemp10.setValue(tempValuesFromSecondLocation[4] + unit);
+
+        //setting source for iconImage for 2nd Location
+        iconImage2.setSource(new ExternalResource("http://openweathermap.org/img/w/" + iconCodesFromSecondLocation[0] + ".png"));
+        iconImage4.setSource(new ExternalResource("http://openweathermap.org/img/w/" + iconCodesFromSecondLocation[1] + ".png"));
+        iconImage6.setSource(new ExternalResource("http://openweathermap.org/img/w/" + iconCodesFromSecondLocation[2] + ".png"));
+        iconImage8.setSource(new ExternalResource("http://openweathermap.org/img/w/" + iconCodesFromSecondLocation[3] + ".png"));
+        iconImage10.setSource(new ExternalResource("http://openweathermap.org/img/w/" + iconCodesFromSecondLocation[4] + ".png"));
+
+//        dashBoardMainFirstDay.addComponents(currentLocationTitle1, iconImage1, currentTemp1);
+//        mainLayout.addComponents(dashBoardMainFirstDay);
+//
+//        dashBoardMainFirstDay.addComponents(currentLocationTitle2, iconImage2, currentTemp2);
+//        mainLayout.addComponents(dashBoardMainFirstDay);
+
+
+
+        //checking icon codes
+        /*for (String temp : iconCodes) {
+            System.out.println(temp);
+        }*/
+        //checking temp values
+        /*for (Double temp : tempValuesFromFirstLocation) {
+            System.out.println(temp);
+        }
+        */
 
     }
 
