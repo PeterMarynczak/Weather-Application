@@ -14,8 +14,8 @@ public class HeaderApp {
         headerLayout.setDefaultComponentAlignment(Alignment.MIDDLE_CENTER);
 
         Label title = new Label("Welcome in Weather App!");
-        title.addStyleName(ValoTheme.LABEL_H2);
-        title.addStyleName(ValoTheme.LABEL_LIGHT);
+        title.addStyleName(ValoTheme.LABEL_H1);
+        title.addStyleName(ValoTheme.LABEL_HUGE);
         title.addStyleName(ValoTheme.LABEL_COLORED);
 
         headerLayout.addComponents(title);

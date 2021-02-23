@@ -201,97 +201,97 @@ public class MainView extends UI {
         dashBoardMainFifthDay.setMargin(false);
 
         currentLocationTitle1 = new Label("Currently in Przemyśl");
-        currentLocationTitle1.addStyleName(ValoTheme.LABEL_H2);
+        currentLocationTitle1.addStyleName(ValoTheme.LABEL_H3);
         currentLocationTitle1.addStyleName(ValoTheme.LABEL_LIGHT);
 
         currentLocationTitle2 = new Label("Currently in Orły");
-        currentLocationTitle2.addStyleName(ValoTheme.LABEL_H2);
+        currentLocationTitle2.addStyleName(ValoTheme.LABEL_H3);
         currentLocationTitle2.addStyleName(ValoTheme.LABEL_LIGHT);
 
         currentLocationTitle3 = new Label("Currently in Przemyśl");
-        currentLocationTitle3.addStyleName(ValoTheme.LABEL_H2);
+        currentLocationTitle3.addStyleName(ValoTheme.LABEL_H3);
         currentLocationTitle3.addStyleName(ValoTheme.LABEL_LIGHT);
 
         currentLocationTitle4 = new Label("Currently in Orły");
-        currentLocationTitle4.addStyleName(ValoTheme.LABEL_H2);
+        currentLocationTitle4.addStyleName(ValoTheme.LABEL_H3);
         currentLocationTitle4.addStyleName(ValoTheme.LABEL_LIGHT);
 
         currentLocationTitle5 = new Label("Currently in Przemyśl");
-        currentLocationTitle5.addStyleName(ValoTheme.LABEL_H2);
+        currentLocationTitle5.addStyleName(ValoTheme.LABEL_H3);
         currentLocationTitle5.addStyleName(ValoTheme.LABEL_LIGHT);
 
         currentLocationTitle6 = new Label("Currently in Orły");
-        currentLocationTitle6.addStyleName(ValoTheme.LABEL_H2);
+        currentLocationTitle6.addStyleName(ValoTheme.LABEL_H3);
         currentLocationTitle6.addStyleName(ValoTheme.LABEL_LIGHT);
 
         currentLocationTitle7 = new Label("Currently in Przemyśl");
-        currentLocationTitle7.addStyleName(ValoTheme.LABEL_H2);
+        currentLocationTitle7.addStyleName(ValoTheme.LABEL_H3);
         currentLocationTitle7.addStyleName(ValoTheme.LABEL_LIGHT);
 
         currentLocationTitle8 = new Label("Currently in Orły");
-        currentLocationTitle8.addStyleName(ValoTheme.LABEL_H2);
+        currentLocationTitle8.addStyleName(ValoTheme.LABEL_H3);
         currentLocationTitle8.addStyleName(ValoTheme.LABEL_LIGHT);
 
         currentLocationTitle9 = new Label("Currently in Przemyśl");
-        currentLocationTitle9.addStyleName(ValoTheme.LABEL_H2);
+        currentLocationTitle9.addStyleName(ValoTheme.LABEL_H3);
         currentLocationTitle9.addStyleName(ValoTheme.LABEL_LIGHT);
 
         currentLocationTitle10 = new Label("Currently in Orły");
-        currentLocationTitle10.addStyleName(ValoTheme.LABEL_H2);
+        currentLocationTitle10.addStyleName(ValoTheme.LABEL_H3);
         currentLocationTitle10.addStyleName(ValoTheme.LABEL_LIGHT);
 
 
         //Current Temperature Label
         currentTemp1 = new Label("19F");
         currentTemp1.addStyleName(ValoTheme.LABEL_BOLD);
-        currentTemp1.addStyleName(ValoTheme.LABEL_H1);
+        currentTemp1.addStyleName(ValoTheme.LABEL_H2);
         currentTemp1.addStyleName(ValoTheme.LABEL_LIGHT);
 
         currentTemp2 = new Label("10F");
         currentTemp2.addStyleName(ValoTheme.LABEL_BOLD);
-        currentTemp2.addStyleName(ValoTheme.LABEL_H1);
+        currentTemp2.addStyleName(ValoTheme.LABEL_H2);
         currentTemp2.addStyleName(ValoTheme.LABEL_LIGHT);
 
         //Current Temperature Label
         currentTemp3 = new Label("19F");
         currentTemp3.addStyleName(ValoTheme.LABEL_BOLD);
-        currentTemp3.addStyleName(ValoTheme.LABEL_H1);
+        currentTemp3.addStyleName(ValoTheme.LABEL_H2);
         currentTemp3.addStyleName(ValoTheme.LABEL_LIGHT);
 
         currentTemp4 = new Label("10F");
         currentTemp4.addStyleName(ValoTheme.LABEL_BOLD);
-        currentTemp4.addStyleName(ValoTheme.LABEL_H1);
+        currentTemp4.addStyleName(ValoTheme.LABEL_H2);
         currentTemp4.addStyleName(ValoTheme.LABEL_LIGHT);
 
         //Current Temperature Label
         currentTemp5 = new Label("19F");
         currentTemp5.addStyleName(ValoTheme.LABEL_BOLD);
-        currentTemp5.addStyleName(ValoTheme.LABEL_H1);
+        currentTemp5.addStyleName(ValoTheme.LABEL_H2);
         currentTemp5.addStyleName(ValoTheme.LABEL_LIGHT);
 
         currentTemp6 = new Label("10F");
         currentTemp6.addStyleName(ValoTheme.LABEL_BOLD);
-        currentTemp6.addStyleName(ValoTheme.LABEL_H1);
+        currentTemp6.addStyleName(ValoTheme.LABEL_H2);
         currentTemp6.addStyleName(ValoTheme.LABEL_LIGHT);
 
         currentTemp7 = new Label("10F");
         currentTemp7.addStyleName(ValoTheme.LABEL_BOLD);
-        currentTemp7.addStyleName(ValoTheme.LABEL_H1);
+        currentTemp7.addStyleName(ValoTheme.LABEL_H2);
         currentTemp7.addStyleName(ValoTheme.LABEL_LIGHT);
 
         currentTemp8 = new Label("10F");
         currentTemp8.addStyleName(ValoTheme.LABEL_BOLD);
-        currentTemp8.addStyleName(ValoTheme.LABEL_H1);
+        currentTemp8.addStyleName(ValoTheme.LABEL_H2);
         currentTemp8.addStyleName(ValoTheme.LABEL_LIGHT);
 
         currentTemp9 = new Label("10F");
         currentTemp9.addStyleName(ValoTheme.LABEL_BOLD);
-        currentTemp9.addStyleName(ValoTheme.LABEL_H1);
+        currentTemp9.addStyleName(ValoTheme.LABEL_H2);
         currentTemp9.addStyleName(ValoTheme.LABEL_LIGHT);
 
         currentTemp10 = new Label("10F");
         currentTemp10.addStyleName(ValoTheme.LABEL_BOLD);
-        currentTemp10.addStyleName(ValoTheme.LABEL_H1);
+        currentTemp10.addStyleName(ValoTheme.LABEL_H2);
         currentTemp10.addStyleName(ValoTheme.LABEL_LIGHT);
 
 
