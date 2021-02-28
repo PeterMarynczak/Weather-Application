@@ -5,11 +5,10 @@ import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.Label;
 import com.vaadin.ui.themes.ValoTheme;
 
-import static com.peter.weatherapp.WeatherApp.view.MainView.mainLayout;
-
 public class HeaderApp {
 
-    public void setHeader() {
+    public HorizontalLayout buildHeader() {
+
         HorizontalLayout headerLayout = new HorizontalLayout();
         headerLayout.setDefaultComponentAlignment(Alignment.MIDDLE_CENTER);
 
@@ -20,6 +19,6 @@ public class HeaderApp {
 
         headerLayout.addComponents(title);
 
-        mainLayout.addComponents(headerLayout);
+        return headerLayout;
     }
 }

@@ -13,58 +13,41 @@ import java.io.IOException;
 @Service
 public class WeatherService {
 
-    private OkHttpClient client;
-    private Response response;
+    private OkHttpClient client = new OkHttpClient();
     private String cityName;
     private String unit;
 
+
 /*    public JSONObject getWeather() throws JSONException {
 
-        client = new OkHttpClient();
-        Request request = new Request.Builder()
-                .url("http://api.openweathermap.org/data/2.5/weather?q="+getCityName()+"&units="+getUnit()+"&APPID=36dee2f719fcadc7bbed52c0d7c39b75")
-                .build();
+        Response response;
 
+        Request request = new Request.Builder()
+                .url("http://api.openweathermap.org/data/2.5/forecast?q=" + getCityName() + "&units=" + getUnit() + "&APPID=36dee2f719fcadc7bbed52c0d7c39b75")
+                .build();
         try {
             response = client.newCall(request).execute();
             return new JSONObject(response.body().string());
         } catch (IOException e) {
             e.printStackTrace();
+            return null;
         }
-
-        return null;
     }*/
 
-        public JSONObject getWeather() throws JSONException {
+    public JSONObject getWeather(String firstLocation, String defaultUnit) throws JSONException {
 
-        client = new OkHttpClient();
+        Response response;
+
         Request request = new Request.Builder()
-                .url("http://api.openweathermap.org/data/2.5/forecast?q="+getCityName()+"&units="+getUnit()+"&APPID=36dee2f719fcadc7bbed52c0d7c39b75")
+                .url("http://api.openweathermap.org/data/2.5/forecast?q=" + firstLocation + "&units=" + defaultUnit + "&APPID=36dee2f719fcadc7bbed52c0d7c39b75")
                 .build();
         try {
             response = client.newCall(request).execute();
             return new JSONObject(response.body().string());
         } catch (IOException e) {
             e.printStackTrace();
+            return null;
         }
-
-        return null;
-    }
-
-    public JSONArray returnWeatherArray() throws JSONException {
-        return getWeather().getJSONArray("weather");
-    }
-
-    public JSONObject returnMainObject() throws JSONException {
-        return getWeather().getJSONObject("main");
-    }
-
-    public JSONObject returnWindObject() throws JSONException {
-        return getWeather().getJSONObject("wind");
-    }
-
-    public JSONObject returnSunSet() throws JSONException {
-        return getWeather().getJSONObject("sys");
     }
 
     private String getCityName() {
@@ -83,11 +66,11 @@ public class WeatherService {
         this.unit = unit;
     }
 
-
-
-    public JSONArray returnTestObject() throws JSONException {
+/*    public JSONArray getWeatherObject() throws JSONException {
         return getWeather().getJSONArray("list");
+    }*/
+
+    public JSONArray getWeatherObject(String firstLocation, String defaultUnit) throws JSONException {
+        return getWeather(firstLocation, defaultUnit).getJSONArray("list");
     }
-
-
 }
