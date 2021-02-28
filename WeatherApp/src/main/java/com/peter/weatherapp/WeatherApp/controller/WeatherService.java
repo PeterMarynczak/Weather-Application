@@ -14,25 +14,6 @@ import java.io.IOException;
 public class WeatherService {
 
     private OkHttpClient client = new OkHttpClient();
-    private String cityName;
-    private String unit;
-
-
-/*    public JSONObject getWeather() throws JSONException {
-
-        Response response;
-
-        Request request = new Request.Builder()
-                .url("http://api.openweathermap.org/data/2.5/forecast?q=" + getCityName() + "&units=" + getUnit() + "&APPID=36dee2f719fcadc7bbed52c0d7c39b75")
-                .build();
-        try {
-            response = client.newCall(request).execute();
-            return new JSONObject(response.body().string());
-        } catch (IOException e) {
-            e.printStackTrace();
-            return null;
-        }
-    }*/
 
     public JSONObject getWeather(String firstLocation, String defaultUnit) throws JSONException {
 
@@ -49,26 +30,6 @@ public class WeatherService {
             return null;
         }
     }
-
-    private String getCityName() {
-        return cityName;
-    }
-
-    public void setCityName(String cityName) {
-        this.cityName = cityName;
-    }
-
-    private String getUnit() {
-        return unit;
-    }
-
-    public void setUnit(String unit) {
-        this.unit = unit;
-    }
-
-/*    public JSONArray getWeatherObject() throws JSONException {
-        return getWeather().getJSONArray("list");
-    }*/
 
     public JSONArray getWeatherObject(String firstLocation, String defaultUnit) throws JSONException {
         return getWeather(firstLocation, defaultUnit).getJSONArray("list");
