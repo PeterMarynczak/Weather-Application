@@ -1,0 +1,11 @@
+package com.peter.weatherapp.WeatherApp.view;
+
+import com.vaadin.ui.TextField;
+
+public class CityTextField extends TextField {
+
+    public CityTextField() {
+
+        setWidth("300px");
+    }
+}

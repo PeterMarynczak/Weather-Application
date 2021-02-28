@@ -1,4 +1,4 @@
-package com.peter.weatherapp.WeatherApp.controller;
+package com.peter.weatherapp.WeatherApp.model;
 
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
@@ -15,7 +15,7 @@ public class WeatherService {
 
     private OkHttpClient client = new OkHttpClient();
 
-    public JSONObject getWeather(String firstLocation, String defaultUnit) throws JSONException {
+    private JSONObject getWeather(String firstLocation, String defaultUnit) throws JSONException {
 
         Response response;
 
