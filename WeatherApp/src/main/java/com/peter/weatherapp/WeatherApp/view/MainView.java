@@ -300,7 +300,7 @@ public class MainView extends UI {
                 currentTemp8.setValue(tempValuesFromSecondLocation[3] + formattedUnit);
                 currentTemp10.setValue(tempValuesFromSecondLocation[4] + formattedUnit);
 
-                //setting source for iconImage for 2nd Location
+                //setting source for iconImage for 2nd Locationstat
                 iconImage2 = new Image(null, new ClassResource("/" + iconCodesFromSecondLocation[0] + ".png"));
                 iconImage4 = new Image(null, new ClassResource("/" + iconCodesFromSecondLocation[1] + ".png"));
                 iconImage6 = new Image(null, new ClassResource("/" + iconCodesFromSecondLocation[2] + ".png"));
