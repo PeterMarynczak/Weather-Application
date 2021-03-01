@@ -2,6 +2,7 @@ package com.peter.weatherapp.WeatherApp.view;
 
 import com.peter.weatherapp.WeatherApp.model.WeatherService;
 import com.vaadin.icons.VaadinIcons;
+import com.vaadin.server.ClassResource;
 import com.vaadin.server.ExternalResource;
 import com.vaadin.server.VaadinRequest;
 import com.vaadin.spring.annotation.SpringUI;
@@ -11,7 +12,6 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
-
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -275,12 +275,12 @@ public class MainView extends UI {
             currentTemp7.setValue(tempValuesFromFirstLocation[3] + formattedUnit);
             currentTemp9.setValue(tempValuesFromFirstLocation[4] + formattedUnit);
 
-            //setting source for iconImage for 1st Location
-            iconImage1.setSource(new ExternalResource("http://openweathermap.org/img/w/" + iconCodesFromFirstLocation[0] + ".png"));
-            iconImage3.setSource(new ExternalResource("http://openweathermap.org/img/w/" + iconCodesFromFirstLocation[1] + ".png"));
-            iconImage5.setSource(new ExternalResource("http://openweathermap.org/img/w/" + iconCodesFromFirstLocation[2] + ".png"));
-            iconImage7.setSource(new ExternalResource("http://openweathermap.org/img/w/" + iconCodesFromFirstLocation[3] + ".png"));
-            iconImage9.setSource(new ExternalResource("http://openweathermap.org/img/w/" + iconCodesFromFirstLocation[4] + ".png"));
+            iconImage1 = new Image(null, new ClassResource("/" + iconCodesFromFirstLocation[0] + ".png"));
+            iconImage3 = new Image(null, new ClassResource("/" + iconCodesFromFirstLocation[1] + ".png"));
+            iconImage5 = new Image(null, new ClassResource("/" + iconCodesFromFirstLocation[2] + ".png"));
+            iconImage7 = new Image(null, new ClassResource("/" + iconCodesFromFirstLocation[3] + ".png"));
+            iconImage9 = new Image(null, new ClassResource("/" + iconCodesFromFirstLocation[4] + ".png"));
+
 
             //getting new JSON Array for objects from 2nd Location
             JSONArray arrayFromSecondLocation = weatherService.getWeatherObject(secondLocation, selectedUnit);
@@ -301,11 +301,11 @@ public class MainView extends UI {
                 currentTemp10.setValue(tempValuesFromSecondLocation[4] + formattedUnit);
 
                 //setting source for iconImage for 2nd Location
-                iconImage2.setSource(new ExternalResource("http://openweathermap.org/img/w/" + iconCodesFromSecondLocation[0] + ".png"));
-                iconImage4.setSource(new ExternalResource("http://openweathermap.org/img/w/" + iconCodesFromSecondLocation[1] + ".png"));
-                iconImage6.setSource(new ExternalResource("http://openweathermap.org/img/w/" + iconCodesFromSecondLocation[2] + ".png"));
-                iconImage8.setSource(new ExternalResource("http://openweathermap.org/img/w/" + iconCodesFromSecondLocation[3] + ".png"));
-                iconImage10.setSource(new ExternalResource("http://openweathermap.org/img/w/" + iconCodesFromSecondLocation[4] + ".png"));
+                iconImage2 = new Image(null, new ClassResource("/" + iconCodesFromSecondLocation[0] + ".png"));
+                iconImage4 = new Image(null, new ClassResource("/" + iconCodesFromSecondLocation[1] + ".png"));
+                iconImage6 = new Image(null, new ClassResource("/" + iconCodesFromSecondLocation[2] + ".png"));
+                iconImage8 = new Image(null, new ClassResource("/" + iconCodesFromSecondLocation[3] + ".png"));
+                iconImage10 = new Image(null, new ClassResource("/" + iconCodesFromSecondLocation[4] + ".png"));
 
             }
 
