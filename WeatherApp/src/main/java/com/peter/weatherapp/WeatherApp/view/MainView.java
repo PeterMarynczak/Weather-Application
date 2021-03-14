@@ -94,14 +94,18 @@ public class MainView extends UI {
                 } catch (JSONException e) {
                     e.printStackTrace();
                     Notification.show("Entered City name is invalid or doesn't exist");
-                    mainLayout.removeComponent(dashBoardMainFirstDay);
-                    mainLayout.removeComponent(dashBoardMainSecondDay);
-                    mainLayout.removeComponent(dashBoardMainThirdDay);
-                    mainLayout.removeComponent(dashBoardMainFourthDay);
-                    mainLayout.removeComponent(dashBoardMainFifthDay);
+                    clearMainLayoutFromPreviousData();
                 }
             } else Notification.show("Please enter a city");
         });
+    }
+
+    private void clearMainLayoutFromPreviousData() {
+        mainLayout.removeComponent(dashBoardMainFirstDay);
+        mainLayout.removeComponent(dashBoardMainSecondDay);
+        mainLayout.removeComponent(dashBoardMainThirdDay);
+        mainLayout.removeComponent(dashBoardMainFourthDay);
+        mainLayout.removeComponent(dashBoardMainFifthDay);
     }
 
     private void setUpLayout() {
@@ -241,6 +245,7 @@ public class MainView extends UI {
         currentLocationTitle2.setValue(TODAY_IN + secondLocation);
 
         currentLocationTitle3.setValue(TOMORROW_IN + firstLocation);
+
         currentLocationTitle4.setValue(TOMORROW_IN + secondLocation);
 
         //Getting current day and setting 3rd, 4th and 5th day
@@ -275,20 +280,19 @@ public class MainView extends UI {
             currentTemp7.setValue(tempValuesFromFirstLocation[3] + formattedUnit);
             currentTemp9.setValue(tempValuesFromFirstLocation[4] + formattedUnit);
 
-            iconImage1 = new Image(null, new ClassResource("/" + iconCodesFromFirstLocation[0] + ".png"));
-            iconImage3 = new Image(null, new ClassResource("/" + iconCodesFromFirstLocation[1] + ".png"));
-            iconImage5 = new Image(null, new ClassResource("/" + iconCodesFromFirstLocation[2] + ".png"));
-            iconImage7 = new Image(null, new ClassResource("/" + iconCodesFromFirstLocation[3] + ".png"));
-            iconImage9 = new Image(null, new ClassResource("/" + iconCodesFromFirstLocation[4] + ".png"));
-
-
+            iconImage1.setSource(new ClassResource("/" + iconCodesFromFirstLocation[0] + ".png"));
+            iconImage3.setSource(new ClassResource("/" + iconCodesFromFirstLocation[0] + ".png"));
+            iconImage5.setSource(new ClassResource("/" + iconCodesFromFirstLocation[0] + ".png"));
+            iconImage7.setSource(new ClassResource("/" + iconCodesFromFirstLocation[0] + ".png"));
+            iconImage9.setSource(new ClassResource("/" + iconCodesFromFirstLocation[0] + ".png"));
+            
             //getting new JSON Array for objects from 2nd Location
             JSONArray arrayFromSecondLocation = weatherService.getWeatherObject(secondLocation, selectedUnit);
 
             if (arrayFromSecondLocation != null) {
 
-                String[] iconCodesFromSecondLocation = new String[NR_OF_DAYS];
-                Double[] tempValuesFromSecondLocation = new Double[NR_OF_DAYS];
+                String[] iconCodesFromSecondLocation;
+                Double[] tempValuesFromSecondLocation;
 
                 iconCodesFromSecondLocation = getIconCodes(arrayFromSecondLocation);
                 tempValuesFromSecondLocation = getTempValues(arrayFromSecondLocation);
@@ -300,13 +304,12 @@ public class MainView extends UI {
                 currentTemp8.setValue(tempValuesFromSecondLocation[3] + formattedUnit);
                 currentTemp10.setValue(tempValuesFromSecondLocation[4] + formattedUnit);
 
-                //setting source for iconImage for 2nd Locationstat
-                iconImage2 = new Image(null, new ClassResource("/" + iconCodesFromSecondLocation[0] + ".png"));
-                iconImage4 = new Image(null, new ClassResource("/" + iconCodesFromSecondLocation[1] + ".png"));
-                iconImage6 = new Image(null, new ClassResource("/" + iconCodesFromSecondLocation[2] + ".png"));
-                iconImage8 = new Image(null, new ClassResource("/" + iconCodesFromSecondLocation[3] + ".png"));
-                iconImage10 = new Image(null, new ClassResource("/" + iconCodesFromSecondLocation[4] + ".png"));
-
+                //setting source for iconImage for 2nd Location
+                iconImage2.setSource(new ClassResource("/" + iconCodesFromFirstLocation[0] + ".png"));
+                iconImage4.setSource(new ClassResource("/" + iconCodesFromFirstLocation[0] + ".png"));
+                iconImage6.setSource(new ClassResource("/" + iconCodesFromFirstLocation[0] + ".png"));
+                iconImage8.setSource(new ClassResource("/" + iconCodesFromFirstLocation[0] + ".png"));
+                iconImage10.setSource(new ClassResource("/" + iconCodesFromFirstLocation[0] + ".png"));
             }
 
             dashBoardMainFirstDay.addComponents(currentLocationTitle1, iconImage1, currentTemp1, currentLocationTitle2, iconImage2, currentTemp2);
