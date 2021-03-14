@@ -285,7 +285,7 @@ public class MainView extends UI {
             iconImage5.setSource(new ClassResource("/" + iconCodesFromFirstLocation[0] + ".png"));
             iconImage7.setSource(new ClassResource("/" + iconCodesFromFirstLocation[0] + ".png"));
             iconImage9.setSource(new ClassResource("/" + iconCodesFromFirstLocation[0] + ".png"));
-            
+
             //getting new JSON Array for objects from 2nd Location
             JSONArray arrayFromSecondLocation = weatherService.getWeatherObject(secondLocation, selectedUnit);
 
