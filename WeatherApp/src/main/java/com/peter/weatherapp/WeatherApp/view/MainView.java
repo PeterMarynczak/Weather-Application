@@ -305,11 +305,11 @@ public class MainView extends UI {
                 currentTemp10.setValue(tempValuesFromSecondLocation[4] + formattedUnit);
 
                 //setting source for iconImage for 2nd Location
-                iconImage2.setSource(new ClassResource("/" + iconCodesFromFirstLocation[0] + ".png"));
-                iconImage4.setSource(new ClassResource("/" + iconCodesFromFirstLocation[1] + ".png"));
-                iconImage6.setSource(new ClassResource("/" + iconCodesFromFirstLocation[2] + ".png"));
-                iconImage8.setSource(new ClassResource("/" + iconCodesFromFirstLocation[3] + ".png"));
-                iconImage10.setSource(new ClassResource("/" + iconCodesFromFirstLocation[4] + ".png"));
+                iconImage2.setSource(new ClassResource("/" + iconCodesFromSecondLocation[0] + ".png"));
+                iconImage4.setSource(new ClassResource("/" + iconCodesFromSecondLocation[1] + ".png"));
+                iconImage6.setSource(new ClassResource("/" + iconCodesFromSecondLocation[2] + ".png"));
+                iconImage8.setSource(new ClassResource("/" + iconCodesFromSecondLocation[3] + ".png"));
+                iconImage10.setSource(new ClassResource("/" + iconCodesFromSecondLocation[4] + ".png"));
             }
 
             dashBoardMainFirstDay.addComponents(currentLocationTitle1, iconImage1, currentTemp1, currentLocationTitle2, iconImage2, currentTemp2);
