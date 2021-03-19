@@ -281,10 +281,10 @@ public class MainView extends UI {
             currentTemp9.setValue(tempValuesFromFirstLocation[4] + formattedUnit);
 
             iconImage1.setSource(new ClassResource("/" + iconCodesFromFirstLocation[0] + ".png"));
-            iconImage3.setSource(new ClassResource("/" + iconCodesFromFirstLocation[0] + ".png"));
-            iconImage5.setSource(new ClassResource("/" + iconCodesFromFirstLocation[0] + ".png"));
-            iconImage7.setSource(new ClassResource("/" + iconCodesFromFirstLocation[0] + ".png"));
-            iconImage9.setSource(new ClassResource("/" + iconCodesFromFirstLocation[0] + ".png"));
+            iconImage3.setSource(new ClassResource("/" + iconCodesFromFirstLocation[1] + ".png"));
+            iconImage5.setSource(new ClassResource("/" + iconCodesFromFirstLocation[2] + ".png"));
+            iconImage7.setSource(new ClassResource("/" + iconCodesFromFirstLocation[3] + ".png"));
+            iconImage9.setSource(new ClassResource("/" + iconCodesFromFirstLocation[4] + ".png"));
 
             //getting new JSON Array for objects from 2nd Location
             JSONArray arrayFromSecondLocation = weatherService.getWeatherObject(secondLocation, selectedUnit);
@@ -306,10 +306,10 @@ public class MainView extends UI {
 
                 //setting source for iconImage for 2nd Location
                 iconImage2.setSource(new ClassResource("/" + iconCodesFromFirstLocation[0] + ".png"));
-                iconImage4.setSource(new ClassResource("/" + iconCodesFromFirstLocation[0] + ".png"));
-                iconImage6.setSource(new ClassResource("/" + iconCodesFromFirstLocation[0] + ".png"));
-                iconImage8.setSource(new ClassResource("/" + iconCodesFromFirstLocation[0] + ".png"));
-                iconImage10.setSource(new ClassResource("/" + iconCodesFromFirstLocation[0] + ".png"));
+                iconImage4.setSource(new ClassResource("/" + iconCodesFromFirstLocation[1] + ".png"));
+                iconImage6.setSource(new ClassResource("/" + iconCodesFromFirstLocation[2] + ".png"));
+                iconImage8.setSource(new ClassResource("/" + iconCodesFromFirstLocation[3] + ".png"));
+                iconImage10.setSource(new ClassResource("/" + iconCodesFromFirstLocation[4] + ".png"));
             }
 
             dashBoardMainFirstDay.addComponents(currentLocationTitle1, iconImage1, currentTemp1, currentLocationTitle2, iconImage2, currentTemp2);
