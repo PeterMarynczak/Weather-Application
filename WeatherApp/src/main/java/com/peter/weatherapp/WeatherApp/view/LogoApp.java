@@ -6,12 +6,14 @@ import com.vaadin.ui.*;
 
 public class LogoApp {
 
+    private String logoAppLocation = "/weather_icon.png";
+
     public HorizontalLayout buildLogo() {
 
         HorizontalLayout logoLayout = new HorizontalLayout();
         logoLayout.setDefaultComponentAlignment(Alignment.MIDDLE_CENTER);
 
-        Image icon = new Image(null, new ClassResource("/weather_icon.png"));
+        Image icon = new Image(null, new ClassResource(logoAppLocation));
         icon.setWidth("125px");
         icon.setHeight("125px");
         logoLayout.addComponents(icon);
@@ -19,4 +21,7 @@ public class LogoApp {
         return logoLayout;
     }
 
+    public String getLogoAppLocation() {
+        return logoAppLocation;
+    }
 }

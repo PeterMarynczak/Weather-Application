@@ -6,16 +6,16 @@ import static org.hamcrest.CoreMatchers.sameInstance;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
 
-class HeaderAppTest {
+class LogoAppTest {
 
-    public static final String APPLICATION_TITLE = "Welcome in Weather App!";
+    public static final String LOGO_APP_RESOURCE = "/weather_icon.png";
 
     @Test
-    void headerAppShouldHasProperTitle() {
+    void logoAppShouldHasProperRecourseLocation() {
         //given
-        HeaderApp headerApp = new HeaderApp();
+        LogoApp logoApp = new LogoApp();
         //when
         //then
-        assertThat(headerApp.getLabelName(), sameInstance(APPLICATION_TITLE));
+        assertThat(logoApp.getLogoAppLocation(), sameInstance(LOGO_APP_RESOURCE));
     }
 }
