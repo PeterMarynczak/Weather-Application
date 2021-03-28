@@ -264,6 +264,7 @@ public class MainView extends UI {
 
         //getting  JSON Array for objects from 1st Location
         JSONArray arrayFromFirstLocation = weatherService.getWeatherObject(firstLocation, selectedUnit);
+        System.out.println(arrayFromFirstLocation);
 
         if (arrayFromFirstLocation != null) {
 
