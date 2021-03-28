@@ -5,9 +5,18 @@ import org.json.JSONException;
 
 public class WeatherServiceStub {
 
-    public JSONArray getWeatherObject(String cityName) throws JSONException {
+    private String cityName;
 
-        if(cityName != "") {
+    public WeatherServiceStub(String cityName) {
+        this.cityName = cityName;
+    }
+    public WeatherServiceStub( ) {
+
+    }
+
+    public JSONArray getWeatherObject() throws JSONException {
+
+        if(cityName != null) {
             JSONArray weatherDataFromFiveDays = new JSONArray("[" +
                     "{\"cityNAme\": " + cityName + "}," +
                     "{\"tempFromFirstDay\": 15}," +
@@ -20,4 +29,12 @@ public class WeatherServiceStub {
         }
         else return null;
         }
+
+    public String getCityName() {
+        return cityName;
+    }
+
+    public void setCityName(String cityName) {
+        this.cityName = cityName;
+    }
 }
