@@ -8,4 +8,7 @@ public class CityTextField extends TextField {
 
         setWidth("300px");
     }
+    public float getWidth() {
+        return 300;
+    }
 }

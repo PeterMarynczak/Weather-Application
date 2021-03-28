@@ -34,4 +34,5 @@ public class WeatherService {
     public JSONArray getWeatherObject(String firstLocation, String defaultUnit) throws JSONException {
         return getWeather(firstLocation, defaultUnit).getJSONArray("list");
     }
+
 }
