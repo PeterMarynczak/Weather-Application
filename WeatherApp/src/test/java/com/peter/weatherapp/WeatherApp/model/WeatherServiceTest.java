@@ -20,7 +20,6 @@ class WeatherServiceTest {
         //then
         assertNotNull(weatherArrayWithTemperatureInfoFromFiveDays);
         assertThat(weatherArrayWithTemperatureInfoFromFiveDays, is(notNullValue()));
-        //System.out.println(weatherArrayWithTemperatureInfoFromFiveDays);
     }
 
     @Test
