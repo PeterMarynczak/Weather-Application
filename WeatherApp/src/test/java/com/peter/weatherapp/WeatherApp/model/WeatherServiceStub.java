@@ -9,6 +9,7 @@ public class WeatherServiceStub {
 
         if(cityName != "") {
             JSONArray weatherDataFromFiveDays = new JSONArray("[" +
+                    "{\"cityNAme\": " + cityName + "}," +
                     "{\"tempFromFirstDay\": 15}," +
                     "{\"tempFromSecondDay\": 18}," +
                     "{\"tempFromThirdDay\": 11}," +
