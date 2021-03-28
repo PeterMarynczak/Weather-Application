@@ -12,6 +12,7 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.*;
 import static org.hamcrest.core.AllOf.allOf;
 import static org.hamcrest.core.Is.is;
+import static org.junit.jupiter.api.Assertions.assertAll;
 
 class MainViewTest {
 
@@ -56,6 +57,20 @@ class MainViewTest {
                 hasSize(5),
                 is(not(empty()))
         ));
+    }
+
+    @Test
+    void tableOfTempValuesShouldHasProperSize() {
+        //given
+        //when
+        List<Integer> tempValuesFromEachCity = mainViewStub.prepareTempValues();
+        //then
+        assertAll("this is a group of assertions for temperature values",
+                () -> assertThat(tempValuesFromEachCity, notNullValue()),
+                () -> assertThat(tempValuesFromEachCity, hasSize(5)),
+                () -> assertThat(tempValuesFromEachCity, is(not(empty())))
+        );
+
     }
 
 }

@@ -18,4 +18,11 @@ public class MainViewStub {
         //return iconCodesFromParticularLocation;
         return Arrays.asList(iconCodesFromParticularLocation);
     }
+
+    public List<Integer> prepareTempValues() {
+
+        Integer[] tempValuesFromParticularLocation = {10, 12, 8, 15, 10};
+        //return iconCodesFromParticularLocation;
+        return Arrays.asList(tempValuesFromParticularLocation);
+    }
 }
