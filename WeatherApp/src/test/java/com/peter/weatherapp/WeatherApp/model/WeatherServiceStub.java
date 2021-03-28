@@ -7,14 +7,16 @@ public class WeatherServiceStub {
 
     public JSONArray getWeatherObject(String cityName) throws JSONException {
 
-        JSONArray weatherDataFromFiveDays = new JSONArray("[" +
-                "{\"tempFromFirstDay\": 15}," +
-                "{\"tempFromSecondDay\": 18}," +
-                "{\"tempFromThirdDay\": 11}," +
-                "{\"tempFromFourthDay\": 20}," +
-                "{\"tempFromFourthDay\": 20}" +
-                "]");
-
-        return weatherDataFromFiveDays;
-    }
+        if(cityName != "") {
+            JSONArray weatherDataFromFiveDays = new JSONArray("[" +
+                    "{\"tempFromFirstDay\": 15}," +
+                    "{\"tempFromSecondDay\": 18}," +
+                    "{\"tempFromThirdDay\": 11}," +
+                    "{\"tempFromFourthDay\": 20}," +
+                    "{\"tempFromFourthDay\": 20}" +
+                    "]");
+            return weatherDataFromFiveDays;
+        }
+        else return null;
+        }
 }

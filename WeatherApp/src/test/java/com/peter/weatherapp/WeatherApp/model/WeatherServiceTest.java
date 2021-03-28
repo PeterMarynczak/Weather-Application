@@ -10,7 +10,6 @@ class WeatherServiceTest {
 
     @Test
     void weatherServiceDataShouldNotBeNullAfterEnteringProperCityName() throws JSONException {
-
         //given
         WeatherServiceStub weatherServiceStub = new WeatherServiceStub();
         //when
@@ -18,4 +17,15 @@ class WeatherServiceTest {
         //then
         assertNotNull(weatherArrayWithTemperatureInfoFromFiveDays);
     }
+
+    @Test
+    void weatherServiceDataShouldBeNullWhenEnteredCityIsNotProper() throws JSONException {
+        //given
+        WeatherServiceStub weatherServiceStub = new WeatherServiceStub();
+        //when
+        JSONArray weatherArrayWithTemperatureInfoFromFiveDays = weatherServiceStub.getWeatherObject("");
+        //then
+        assertNull(weatherArrayWithTemperatureInfoFromFiveDays);
+    }
+
 }
